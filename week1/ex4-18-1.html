@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경 이미지</title>
+    <style>
+        body, html{
+            margin: 0; padding: 0;  /* 기본 여백, 패딩 제거 */
+        }
+        .fullscreen{
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; /* 뷰포트 너비 */
+            height: 100vh;
+            background-image: url("./img/bali.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="fullscreen"></div>
+    
+</body>
+</html>

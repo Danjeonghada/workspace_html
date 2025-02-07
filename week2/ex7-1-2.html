@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기념일</title>
+    <script>
+
+        // input : 문자열(YYYY-MM-DD), 숫자(100)  
+        // output: 문자열(YYYY-MM-DD)
+        function fn_dday(start, days){
+            console.log(start, days);
+            let startDay = new Date(start);
+            let startTime = startDay.getTime();
+            let dDay = startTime + (days * (24 * 60 * 60 * 1000));
+            let dDate = new Date(dDay);
+            console.log(dDate);
+            // YYYY-MM-DD 형식으로
+            let year = dDate.getFullYear();
+            // padStart(총길이, 채우고자 하는 문자열)
+            let month = String(dDate.getMonth()+1).padStart(2,'0');
+            let day = String(dDate.getDate()).padStart(2,'0');
+            // 템플릿 리터럴
+            // `${변수} 문자열` () <-- 백틱
+            // return year+"-"+month+ "-" + day
+            return `${year}-${month}-${day}`;
+
+        }
+        fn_dday("2025-01-21", 100);
+        console.log(fn_dday("2025-01-21", 100));
+        console.log(fn_dday("2025-01-21", 200));
+        console.log(fn_dday("2025-01-21", 300));
+        console.log(fn_dday("2025-01-21", 400));
+        // fn_dday 함수를 이용하여 사용자 입력 dday를 기준으로
+        // 100~1000일까지 화면에 출력하시오
+        // 1. 사용자 입력(prompt)
+        // 2. 반복문 100씩 증가하는 for문
+        // 3. 반복 진행될때마다 화면에 출력 document.write()
+        let startDate = prompt("기념일 시작!", "2025-01-21")
+        document.write(`${startDate} 기념일 시작! <br><br>`);
+        for(let i = 100; i <= 1000; i+=100){
+            let str = fn_dday(startDate, i);
+            document.write(`${i}일 ${str}<br>`);
+        }
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

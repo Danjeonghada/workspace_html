@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구구단 게임</title>
+</head>
+<body>
+    <h1>구구단 게임</h1>
+    <hr>
+    <script>
+        function fn_question(){
+            // Math, random() 0 이상 1 미만 랜덤한 소수 생성
+            // Math, floor() 소수점 이하 버리고 점수 반환
+            const dan = Math.floor(Math.random()*8) +2; // 최소를 2로 만들기 위해
+            const su = Math.floor(Math.random()*9) +1;
+            console.log(dan + "*" + su);
+            return dan + "*" + su;
+        }
+        let question = fn_question();
+        let user = prompt("구구단 문제:"+ question + " 는?");
+        // 정답
+        let result = eval(question);
+        // 사용자 답
+        let userResult = eval(user);
+        console.log(result, userResult);
+        // 사용자 입력과 정답이 같으면 '정답입니다 ^^'
+        // 틀리면 '틀렸습니다.' 문제와 정답을 출력하세요.
+        if(result == userResult){
+            document.write("정답입니다 ^^");
+        }else{
+            document.write("틀렸습니다.<br>" + "문제:" + question + " 정답:" + result)
+        }
+
+    </script>
+</body>
+</html>

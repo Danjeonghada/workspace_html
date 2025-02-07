@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 설명</title>
+    
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 0; padding: 0; text-align: center;
+            background-color: #f0f0f0;
+            }
+        
+        h1{
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        img{
+            border-radius: 5px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;    
+        }
+
+        p{
+            color: #555;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>영화 소개</h1>
+    <img src="./img/movie.webp" width="150" alt="">
+    <p>이 영화는 역사내용 각색한 작품입니다</p>
+    <p id="desciption"></p>
+    <button onclick="fn_change(this)">더 알아보기</button>
+    <script>
+        function fn_change(abj){
+            var des = document.getElementById("desciption");
+            des.textContent = "이 영화는 새로운 기술과 감동적인 연출로...";
+            abj.style.display="none";
+        }
+    </script>
+</body>
+</html>

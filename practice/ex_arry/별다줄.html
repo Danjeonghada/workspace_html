@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>별다줄</title>
+</head>
+<body>
+    <h3>사용자에게 문장을 입력받아 별다줄 해주세요.</h3>
+    <hr>
+    <script>
+        // ex) 갑자기 분위기 싸함 -> 갑분싸 출력
+        // 1. 사용자 문자 입력받기
+        let words = prompt("줄일 말을 써주세요","갑자기 분위기 싸함");
+        // 2. 문장 -> 단어 배열 생성
+        let arr = words.split(" ");
+        let str = "";
+        for(let v of arr){
+            // 3. 각 단어 첫글자 문자열 더하기
+            str +=v[0];
+        }
+        // 4. 출력
+        document.write(`${words}의 줄인말은: <strong>${str}</strong>`);
+    </script>
+</body>
+</html>

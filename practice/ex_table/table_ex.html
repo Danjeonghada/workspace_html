@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 문제</title>
+    <style>
+        table{width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            }
+            th,td{
+                border: 1px solid #ddd;
+                text-align: center;
+            }
+            th{background-color: #f4f4f4;}
+    </style>
+</head>
+<body>
+    <table border="1">
+       <thead>
+        <tr>
+            <th>카테고리</th>
+            <th>제품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>비고</th>
+        </tr>
+       </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">전자제품</td>
+                <td>스마트폰</td>
+                <td>1,000</td>
+                <td>2</td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>노트북</td>
+                <td>2,000</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td rowspan="2">가전제품</td>
+                <td>냉장고</td>
+                <td>3,000</td>
+                <td>1</td>
+                <td rowspan="2">사용</td>
+            </tr>
+            <tr>
+                <td colspan="2">총계</td>
+                <td>6,000</td>
+            </tr>
+        </tbody>
+    </table>
+   
+</body>
+</html>

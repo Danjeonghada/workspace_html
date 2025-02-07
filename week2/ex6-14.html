@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if ~ else를 이용한 등급 출력</title>
+</head>
+<body>
+    <h3>등급 출력!</h3>
+    <hr>
+    <script>
+        let grade;
+        let score = prompt("점수를 입력하세요!!");
+        console.log(score, typeof(score));
+        // string to number
+        // score = parseInt(score); // parseFloat 실수형태
+        score = score * 1;
+        console.log(score, typeof(score));
+        if(score >= 90){
+            grade = "A";
+        }else if(score >= 80){
+            grade = "B";
+        }else{
+            grade = "F";
+        }
+        console.log(score, "는", grade, "입니다");
+        document.write(score + "는 " + grade + "입니다.");
+    </script>
+</body>
+</html>

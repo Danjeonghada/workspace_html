@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로꾸거</title>
+</head>
+<body>
+    <h3>텍스트를 입력받아 거꾸로 출력하시오</h3>
+    <hr>
+    <script>
+        // ex 이효리
+        // 거꾸로 출력 리, 효, 이
+        // 1. 사용자 입력
+        let name = prompt("이름을 입력하세요", "이효리")
+        // 2. 자른다 split("")<-- 텍스트 1칸씩 자름
+        let arr = name.split("");
+        // 3. 반전시킨다.
+        eman = arr.reverse().join(",");
+        // 4. 결합하여 출력
+        document.write(name + "를 거꾸로 하면: ",eman);
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 함수</title>
+    <script>
+        /*  선언적 함수와 익명함수
+            1. 선언적 함수는 function 이라는 키워드로 함수를 선언하며
+               선언된 함수는 script 위치 어디서든 사용가능(전역적으로)
+            2. 익명함수는 이름이 없는 함수를 의미하며 함수 작성 하위에서 사용가능
+               -변수에 담아 사용가능.
+         */
+    func_1(); // 선언문 위에서도 실행 가능
+        function func_1(){
+            console.log("선언적 함수. ");
+        }
+        // func_2(); // 오류남
+        let func_2 = function(){
+            console.log("익명 함수");
+        }
+        func_2(); // 아래서만 사용가능
+
+        function fn_call(func){
+            console.log("전달받은:", func);
+            for(let i = 0; i < 10; i ++){
+                func(); // 전달받은 함수를 사용
+            }
+        }
+        fn_call(func_2); // 함수를 전달
+        fn_call(function(){ console.log("!!!익명함수!!!")});
+            
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

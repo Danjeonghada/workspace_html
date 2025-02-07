@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비디오</title>
+    <style>
+        video { position:fixed;    /* 고정*/
+                left: 0; top: 0;   /* 왼쪽 위쪽 여백 없게*/
+                z-index: -1;       /* 뒤에 배치*/
+                min-width: 100%;   /* 최소너비 100%*/
+                min-height: 100%;  /* 최소 높이 100%*/
+        }
+    </style>
+</head>
+<body>
+    <h3>bail</h3>
+    <hr>
+    <!-- autoplay는 자동실행(화면이 로드됐을 때) 하지만
+     음소거(muted) 상태에서만 됨. -->
+    <video src="./video/Kuta_BALI.mp4" autoplay muted loop width="500px"></video>
+</body>
+</html>

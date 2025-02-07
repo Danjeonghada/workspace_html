@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>복잡한 폼 입력 예제</title>
+</head>
+<body>
+    <h2>회원 가입 폼</h2>
+    <p>아래 정보를 입력하여 회원 가입을 완료하세요.</p>
+    <hr>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function fn_open(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    document.getElementById('address').value = data.address;
+                }
+            }).open();
+        }
+    </script>
+    <form action="/submit" method="post">
+        <!-- 개인 정보 섹션 -->
+        <fieldset>
+            <legend><strong>개인 정보</strong></legend>
+            <label for="username">이름: </label>
+            <input type="text" id="username" name="username" required placeholder="홍길동"><br><br>
+
+            <label for="birthdate">생년월일: </label>
+            <input type="date" id="birthdate" name="birthdate" required><br><br>
+
+            <label for="gender">성별: </label>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">남성</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">여성</label>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">기타</label><br><br>
+        </fieldset>
+
+        <!-- 연락처 정보 섹션 -->
+        <fieldset>
+            <legend><strong>연락처 정보</strong></legend>
+            <label for="email">이메일: </label>
+            <input type="email" id="email" name="email" required placeholder="example@example.com"><br><br>
+
+            <label for="phone">전화번호: </label>
+            <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678"><br><br>
+
+            <label for="address">주소: </label><br>
+            <textarea onclick="fn_open()" id="address" name="address" rows="4" cols="50" placeholder="주소를 입력하세요."></textarea><br><br>
+        </fieldset>
+
+        <!-- 계정 정보 섹션 -->
+        <fieldset>
+            <legend><strong>계정 정보</strong></legend>
+            <label for="username_account">사용자명: </label>
+            <input type="text" id="username_account" name="username_account" required><br><br>
+
+            <label for="password">비밀번호: </label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="confirm_password">비밀번호 확인: </label>
+            <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
+            <label for="security_question">보안 질문: </label>
+            <select id="security_question" name="security_question">
+                <option value="pet">가장 좋아하는 반려동물 이름은?</option>
+                <option value="school">졸업한 초등학교 이름은?</option>
+                <option value="city">태어난 도시 이름은?</option>
+            </select><br><br>
+
+            <label for="security_answer">보안 답변: </label>
+            <input type="text" id="security_answer" name="security_answer" required><br><br>
+        </fieldset>
+
+        <!-- 동의 섹션 -->
+        <fieldset>
+            <legend><strong>동의</strong></legend>
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">이용 약관에 동의합니다.</label><br>
+
+            <input type="checkbox" id="privacy" name="privacy" required>
+            <label for="privacy">개인 정보 보호 정책에 동의합니다.</label><br><br>
+        </fieldset>
+
+        <button type="submit">가입하기</button>
+        <button type="reset">초기화</button>
+    </form>
+</body>
+</html>

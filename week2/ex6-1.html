@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript 작성 위치</title>
+    <script>
+        console.log("script tag는 html 문서 어디든 작성 가능. ");
+        console.log("하지만 위치에 따른 실행 순서가 있음.");
+        console.log(document);
+    </script>
+    <!-- 3.파일로 불러오기 -->
+     <script src="lib.js"></script>
+</head>
+<body>
+    <h3>마우스를 이미지에 올려보세요!</h3>
+    <hr>
+    <!-- 1. 태그(element에 작성) -->
+    <img id="myImg" src="../week1/img/apple.PNG" width="100px" alt="" 
+             onmouseover="this.src='../week1/img/banana.PNG'"
+             onmouseout="this.src='../week1/img/apple.PNG'">
+
+    <!-- 2.script 태그 안에 작성 html 어디든 위치 가능, 여러개 가능 -->
+    <script>
+        // html 문서에서 id myImg 찾고 속성 src 값 출력
+        console.log('콘솔에 출력', document.getElementById('myImg').src);
+        console.log(document.getElementById('myImg'));
+        let obj = document.getElementById('myImg');
+        console.log(obj.src);
+        console.log(obj.id);
+        console.log(obj.tagName);
+        console.log(obj.innerHTML);
+    </script>
+    
+</body>
+</html>

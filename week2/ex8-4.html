@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom에서 this</title>
+    <script>
+        function fn_change(o, s, c){
+            console.log(o);
+            o.style.color = c;
+            o.style.fontSize = s;
+        }
+    </script>
+</head>
+<body>
+    <h3>this 활용</h3>
+    <hr>
+    <button ondblclick="fn_change(this, '14px', 'black')" onclick="fn_change(this, '30px', 'red')">버튼1</button>
+    <button ondblclick="fn_change(this, '14px', 'black')" onclick="fn_change(this, '20px', 'blue')">버튼2</button>
+    <div ondblclick="fn_change(this, '14px', 'black')" onclick="fn_change(this, '10px', 'orange')">여기를 클릭!</div>
+</body>
+</html>

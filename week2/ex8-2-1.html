@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랜덤 추첨!</title>
+    <style>
+        body{text-align: center; margin-top: 50px;}
+        #result{font-size: 24; font-weight: bold; margin-top: 20px;}
+        button{font-size: 18px; padding: 10px 20px; cursor: pointer;}
+    </style>
+    <script>
+        const items = ["강지석", "김도래", "김병준", "김서영", "김소연", "김원진", "박정단", "박종욱", 
+                       "송은호", "신미정", "이예성", "이예은", "정지나", "최보석", "한수정"];
+        function pickRandom(){
+            // 0~ item.length-1 랜덤값
+            let randomIdx = Math.floor(Math.random()* items.length);
+            document.getElementById("result").innerHTML = `선택한 항목:${items[randomIdx]}`;
+        }
+        // innerHTML은 하위 태그를 모두 바꿈
+    </script>
+</head>
+<body>
+    <h1>랜덤 추첨기</h1>
+    <button onclick="pickRandom()">추첨하기!</button>
+    <div id="result">결과가 여기에 표시됩니다.</div>
+    
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상대 배치 relative</title>
+    <!-- 
+        position 속성
+        static(정적 배치) : html 모든 요소는 디폴트로 정적 배치, 문서의 일반적인 흐름에 따라 배치됨.
+        relative(상대 배치) : 일반적인 흐름에 따라 배치 후 추가로 top - left.. 속성 사용하여 위치할 수 있음.
+        ablsolute(절대 배치) : 일반적 흐름 제거, 가장 가까운 조상 위치를 기준으로 배치
+        fixed(고정 배치) : 일반적 흐름 제거, 브라우저 창 기준으로 고정
+        float(유동 배치) : left or right로 요소를 떠오르게 함.
+        -->
+        <style>
+            div{display: inline-block; height: 50px; width: 50px;
+                color: white; background-color: red; text-align: center; border: 1px solid lightgray;
+            }
+            #down:hover{position: relative; left: 20px; top: 20px; background-color: green;}
+            #up:hover{position: relative; right: 20px; bottom: 20px; background-color: green;}
+            #fixed{position: fixed; right: 10px; bottom: 10px; width: 50px;}
+        </style>
+
+</head>
+<body>
+    <h3>position : relative</h3>
+    <hr>
+    <div>T</div>
+    <div id="down">h</div>
+    <div>a</div>
+    <div>n</div>
+    <div id="up">k</div>
+    <div>s</div>
+    <img src="./img/apple.PNG" id="fixed" alt="">
+</body>
+</html>

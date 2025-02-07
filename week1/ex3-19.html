@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 입력 그룹으로 묶기</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function fn_addr(){
+        new daum.Postcode({
+        oncomplete: function(data) {
+           console.log(data);
+           document.getElementById('address'). value=data.address;
+        }
+    }).open();
+    }
+</script>
+</head>
+<body>
+    <h3>회원 정보를 입력해주세요^^</h3>
+    <hr>
+    <form action="" method="post">
+        <fieldset>
+            <legend>회원정보</legend>
+            이메일 : <input type="email" required> <br>
+            패스워드 : <input type="password" required> <br>
+            전화번호 : <input type="tel" placeholder="010-123-4567" required> <br>
+            주소     : <input readonly onclick= "fn_addr();" type="text" id="address"><br>
+            특이사항 : <textarea name="" id="" rows="5" cols="50"></textarea>
+        </fieldset>
+        <button type="submit">
+            <img src="./img/apple.PNG" width="100" alt="">
+        </button>
+        <button type="reset">초기화</button>
+    </form>
+</body>
+</html>

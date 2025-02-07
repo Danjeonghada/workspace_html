@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 배열 array</title>
+    <script>
+        // javascript에서 배열은 동적배열(크기가 자유로움)
+        // 타입도 자유로움
+        // let plots = [];         // 빈 배열 선언
+        // let plots= new Array(); // 빈 배열 선언(위와 동일)
+        // let plots = [50, 5, 8, 15];
+        let plots = new Array(50, 5, "팽수", new Date()); // 위와 동일
+        console.log(plots[0]); // index로 value에 접근
+        console.log("배열 객체 기본 속성값 length:",plots.length);
+        for(let i = 0; i < plots.length; i++){
+            console.log(plots[i]);
+        }
+        // Array 기본 메소드
+        console.log("=========================================");
+        let a = new Array("황","김","이");
+        let b = ["박"];
+        let c;
+        c = a.concat(b); // concat 배열 결합
+        console.log("c",c);
+        console.log("join 배열 요소 문자열 결합", c.join());
+        console.log("join 배열 요소 문자열 결합", c.join("|"));
+        console.log("reverse 전:", a);
+        c = a.reverse();
+        console.log("reverse 반전:", a);
+
+        // push 요소 추가, pop 마지막 요소 제거, 
+        c.push("최");
+        console.log("push:", c);
+        c.pop();
+        console.log("pop:", c);
+        //shift 처음요소 꺼내오고 배열에는 처음요소 삭제됨
+        let shift_c = c.shift();
+        console.log("shift:" , shift_c, "c:", c);
+        // unshift 처음요소에 추가
+        c.unshift("권");
+        console.log("unshift:", c);
+        // 1. 기본 for문
+        for(let i = 0; i < c.length; i++){
+            console.log(c[i]);
+        }
+        // 2. for in 문 index가 필요할 때
+        for(let i in c){
+            console.log(i,c[i]);
+        }
+        // 3. for of 문 value만 필요할 때
+        for(let v of c){
+            console.log(v);
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

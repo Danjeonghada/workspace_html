@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입력 사이즈로 table 만들기</title>
+</head>
+<body>
+    <h3>사용자 입력 사이즈 만큼 행, 열 만들기</h3>
+    <hr>
+    <script>
+      let rows = parseInt(prompt("몇 행?"));
+      let cols = parseInt(prompt("몇 열?"));
+      document.write("<table border='1'>");
+        // 사용자 입력 행과 열만큼 테이블 만들기
+        for(let i = 1; i <= rows; i++){
+            document.write("<tr>");
+                for(let j = 1; j <= cols; j++){
+                    document.write("<td>" + i + "행" + j + "열" + "</td>");
+
+                }
+            document.write("</tr>");
+
+        }
+        document.write("</table>");
+    </script>
+</body>
+</html>

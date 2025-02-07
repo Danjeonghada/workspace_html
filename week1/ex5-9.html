@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 응용 메뉴 만들기</title>
+    <style>
+        #menubar{background-color: black; opacity: 0.7;}
+        #menubar ul li a{color: white; text-decoration: none;}
+        #menubar ul{margin: 0; padding: 0; width: 100%;}
+        #menubar ul li{display: inline; list-style-type: none;
+                       left: 15px; right: 15px; padding: 0px 15px;}
+        #menubar ul li a:hover{color: violet;}
+        body{ background-image: url(../week1/img/bali.jpg);
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="menubar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Kuta</a></li>
+            <li><a href="#">Seminyak</a></li>
+            <li><a href="#">Ubud</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float를 활용한 layout</title>
+    <style>
+        html, body{margin: 0; padding: 0; height: 100%;}
+        #header{width: 100%; height: 15%; background-color: yellow;}
+        #nav{width: 15%; height: 70%; background-color: olive; float: left;} /* 유동배치 왼쪽에 붙임*/
+        #section{width: 70%; height: 70%; background-color: orange; float: left;}
+        #aside{width: 15%; height: 70%; background-color: olive; float: left;}
+        /* 이전의 떠오른 float요소를 피해서 배치됨 */
+        #footer{width: 100%; height: 15%; background-color: purple; clear: both;} 
+        #left{width: 50%; height: 100%; background-color: gray; float: left;}
+    </style>
+</head>
+<body>
+    <div id="header">header</div>
+    <div id="nav">nav</div>
+    <div id="section">section
+        <div id="left">left</div>
+        <div id="right">right</div>
+    </div>
+    <div id="aside">aside</div>
+    <div id="footer">footer</div>
+
+    
+</body>
+</html>
