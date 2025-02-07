@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우클릭 컨트롤</title>
+</head>
+<body>
+    <h2>우클릭 메뉴 활성화 테스트</h2>
+    <button onclick="resetMenu()">메뉴 차단</button>
+    <script>
+        let enable = false;       // 기본적으로 메뉴 비활성화
+        let adminId = 'admin123'; // 맞아야 하는 아이디
+        // 1. 화면 전체에서 우클릭 이벤트를 차단(true일때는 차단이 안되도록)
+        // 2. prompt 입력을 받아 adminId와 동일한 입력을 하면 우클릭 가능하도록.
+        // 3. 메뉴 차단 버튼을 누르면 다시 차단되도록.
+        document.addEventListener('contextmenu', function(event){
+            console.log(event);
+            if(!enable){
+                event.preventDefault();
+                let msg = prompt("아이디?");
+                if(adminId === msg){ // === 같은지 === 타입과 값이 같은지지
+                    enable = true;
+                }else{
+                    alert("틀렸습니다...");
+                }
+            } 
+        },true);
+        // 우클릭 이벤트 발생!
+        // enabl이 true가 아닐때 조건문
+        // 일단 차단
+        // 사용자 입력받기
+        // 아이디가 일치하면 enable을 true로
+
+        function resetMenu(){
+            enable = false;
+            alert("우클릭 메뉴 차단");
+        }
+    </script>
+</body>
+</html>

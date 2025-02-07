@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트와 이벤트 객체</title>
+    <script>
+        function fn_init(){
+            let p = document.getElementById('p_id');
+            // 이벤트 등록 2. 이벤트 리스너 프로퍼티에 등록
+            p.onmouseover = fn_msg; // dom 객체 이벤트 리스터 프로퍼티에 메소드 등록
+                                    // 첫번째 매개변수는 default로 event 객체;
+            p.onmousemove = fn_msg;
+        }
+        // 이벤트 등록 3번째 addEventListener('이벤트명, 적용함수, boolean[bubble,capture]')
+        document.addEventListener('contextmenu', function(event){
+            console.log(event);     // context
+            event.preventDefault(); // 디폴트 행동 멈춤 
+        },true);  // default false(bubble단계) true(capture단계)
+
+        function fn_msg(a){
+             console.log(a);
+             console.log(a.type, a.x, a.y);
+             let view = document.getElementById('view');
+             // screenX 사용자 전체화면(모니터 기준)
+             // offsetX,y 이벤트 발생 요소(element) 기준 좌표
+             let str = `(screenX, y)=${a.screenX},${a.screenY} <br>`;
+                 str += `(offsetX, y)=${a.offsetX},${a.offsetY} <br>`;
+             view.innerHTML = str;
+        }
+    </script>
+</head>
+<!-- 이벤트 리스너 등록 1. element에 등록 -->
+<body onload="fn_init()">
+    <p id="p_id">마우스를 올려보세요</p>
+    <button type="button" onclick="fn_msg(event)">클릭!</button>
+    <div id="view" style="width: 250px;"></div>
+</body>
+</html>

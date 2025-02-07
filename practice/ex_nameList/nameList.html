@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./nameList.css">
+    <script>
+        /*
+            1단계 버튼 클릭시 input에 입력된 value 가져오기 
+            2단계 p tag 생성 innerHTML에 1단계에서 가져온 값 넣기(참가자 입력 이름)
+            3단계 span tag 생성 span태그 클릭시 삭제 이벤트 적용
+            4단계 p 와 span 태그 결합하여 nameList 에 첫 요소에 insert 
+        */
+       function fn_name(){
+        // 1단계 버튼 클릭시 input에 입력된 value 가져오기
+           let name = document.getElementById('userName').value;
+           console.log(name);
+        // 2단계 p tag 생성 innerHTML에 1단계에서 가져온 값 넣기(참가자 입력 이름)
+           let newP = document.createElement("p");
+           newP.innerHTML = name;
+           console.log(newP);
+        //    let div = document.getElementById('nameList');
+        //    div.insertBefore(newP, div, childNodes[0]);
+        //    name.value='';
+           let newSpan = document.createElement('span');
+           newSpan.innerHTML = "x";
+           newSpan.onclick = function(){
+            
+           }
+           console.log(newSpan);
+       }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <h1>참가 신청서</h1>
+        <form id="myForm">
+            <input type="text" id="userName" placeholder="이름을 입력하세요" required>
+            <button type="button" onclick="fn_name()">신청</button>
+        </form>
+        <hr>
+        <div id="nameList"></div>
+    </div>
+    <script>
+    </script>
+</body>
+</html>

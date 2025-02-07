@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적 생성 및 삭제</title>
+    <script>
+        function fn_create(){
+            let newDiv = document.createElement("div");
+            newDiv.setAttribute("class","myDiv");
+            newDiv.style.backgroundColor = 'yellow';
+            newDiv.innerHTML = '새로운 DIV';
+            // document에는 무조건 body가 있음
+            // append는 해당 객체의 하위 호환 요소 끝에 붙임.
+            newDiv.onclick = function(){
+                // this <-- newDiv
+                // this.parentElement <-- 부모
+                // 부모에서 나를 삭제
+                console.log(this.parentElement);
+                console.log(this.parentElement.parentElement);
+                // this,children <-- 자식
+                this.parentElement.removeChild(this);
+            }
+            document.body.appendChild(newDiv);
+        }
+        function fn_insert(){
+            let newDiv = document.createElement('div');
+            newDiv.innerHTML = 'insert div';
+            document.body.insertBefore(newDiv,document.body.childNodes[0]);
+        }
+    </script>
+</head>
+<body>
+    <h3>생성, 삽입, 삭제</h3>
+    <hr>
+    <button type="button" onclick="fn_create()">div 생성</button>
+    <a href="javascript:fn_insert()">앞에 추가</a>
+</body>
+</html>
