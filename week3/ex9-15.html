@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image 객체 (이미지 로딩)</title>
+    <style> img{ width :200px;}</style>
+    <script>
+        let files = ["./img/1.jpg","./img/2.jpg","./img/3.jpg","./img/4.jpg",
+                     "./img/5.jpg","./img/6.jpg","./img/7.jpg","./img/8.jpg"];
+        let imgArr = [];
+        for(let i = 0; i < files.length; i++){
+            imgArr[i] = new Image();  // 이미지 객체 생성
+            imgArr[i].src = files[i];  // 해당 이미지 객체에 이미지 경로 등록(load 이벤트)
+        }
+        let idx = 1;
+        function fn_change(obj){
+            obj.src = imgArr[idx].src;
+            idx++
+            idx %= imgArr.length; // 이미지 수를 넘으면 처음으로
+        }
+        setInterval(function(){
+            fn_change(document.getElementById("img_id"));
+        }, 1000)
+    </script>
+</head>
+<body>
+    <h3>이미지를 클릭하면 다음 이미지를 보여줌</h3>
+    <hr>
+    <img src="./img/1.jpg" id="img_id" onclick="fn_change(this)" alt="">
+</body>
+</html>

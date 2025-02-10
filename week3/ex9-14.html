@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 onload</title>
+    <script>
+        function fn_change(){
+            let sel = document.getElementById("sel");
+            let img = document.getElementById("myImg");
+            img.onload = function(){
+                let span = document.getElementById('mySpan');
+                span.innerHTML = img.width + "x" + img.height;
+            }
+            let idx = sel.selectedIndex;      // 선택되어진 인덱스
+            img.src = sel.options[idx].value; // 이미지 변경
+        }
+        // fn_change();
+    </script>
+</head>
+<body onload="fn_change()">
+    
+    <h3>onload 로 이미지의 크기 출력</h3>
+    <hr>
+    <form>
+        <select id="sel" onchange="fn_change()">
+            <option value="../week1/img/apple.PNG">사과</option>
+            <option value="../week1/img/banana.PNG">바나나</option>
+            <option value="../week1/img/earth.png">지구</option>
+        </select>
+        <span id="mySpan">이미지 크기</span>
+    </form>
+    <p>
+        <img id="myImg" src="../week1/img/apple.PNG">
+    </p>
+</body>
+</html>

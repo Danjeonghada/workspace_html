@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마우스 이벤트 객체</title>
+    <script>
+        let width = 1;
+        function fn_up(obj){obj.style.fontStyle = "normal"}
+        function fn_down(obj){obj.style.fontStyle= "italic"}
+        function fn_over(obj){obj.style.borderColor= "violet"}
+        function fn_out(obj){obj.style.borderColor= "lightgray"}
+        function fn_wheel(e, obj){
+            if(e.wheelDelta < 0){
+                // 내렸을 때
+                width--;
+            }else{
+                // 위로 올렸을 때
+                width++;
+            }
+            obj.style.borderStyle="ridge";
+            obj.style.borderWidth=width+'px';
+        }
+        function fn_size(obj){
+            // 변경 대상
+            let el = document.getElementById('span_id');
+
+            // a||b <------ a가 없으면 b 선택, a가 있으면 a
+            let currentSize = el.style.fontSize || window.getComputedStyle(el).fontSize;
+            let objText = obj.innerText;
+            let fontSize = parseInt(currentSize); // 숫자로 변환
+
+            if(objText == "+"){
+                fontSize++;
+            }else if(objText == "-"){
+                fontSize--;
+            }
+            el.style.fontSize = fontSize + 'px'; // 새로운 크기 적용
+        }
+
+    </script>
+</head>
+<body>
+    <h3>마우스 이벤트</h3>
+    <hr>
+    마우스 관련 <span id="span_id" onmouseup="fn_up(this)" 
+                     onmousedown="fn_down(this)" 
+                     onmouseover="fn_over(this)" 
+                     onmouseout="fn_out(this)" 
+                     onwheel="fn_wheel(event, this)">이벤트</span>가 발생합니다.
+                     <!-- span tag의 '이벤트' 텍스트를 + or - 하시오 -->
+    <button type="button" onclick="fn_size(this)">+</button>
+    <button type="button" onclick="fn_size(this)">-</button>
+</body>
+</html>
