@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출력 변경</title>
+    <link rel="stylesheet" href="./css/text.css">
+    <script>
+        let currentStyle = 1;
+        function fn_update(){
+            let input = document.getElementById('inputBox').value;
+            document.getElementById('output').innerText = input || "여기에 출력됩니다.";
+        }
+        function fn_style(){
+            let output = document.getElementById('output');
+            if(currentStyle === 1){
+                output.className = 'style2';
+                currentStyle = 2;
+            }else{
+                output.className = 'style1';
+                currentStyle = 1;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>입력하면 화면에 출력 & 스타일 변경</h2>
+    <input type="text" id="inputBox" placeholder="입력하세요.." oninput="fn_update()">
+    <button type="button" onclick="fn_style()">스타일 변경</button>
+    <br>
+    <div id="output">여기에 출력됨.</div>
+</body>
+</html>

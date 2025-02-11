@@ -6,20 +6,37 @@
     <title>Image 객체 (이미지 로딩)</title>
     <style> img{ width :200px;}</style>
     <script>
+        let idx = 1;
         let files = ["./img/1.jpg","./img/2.jpg","./img/3.jpg","./img/4.jpg",
                      "./img/5.jpg","./img/6.jpg","./img/7.jpg","./img/8.jpg"];
         let imgArr = [];
+        let img;
+        // 온로드 되었을 때 변수에 img 객체 넣기
+        window.onload = function(){
+            img = document.getElementById('img_id');
+        }
         for(let i = 0; i < files.length; i++){
             imgArr[i] = new Image();  // 이미지 객체 생성
             imgArr[i].src = files[i];  // 해당 이미지 객체에 이미지 경로 등록(load 이벤트)
         }
-        let idx = 1;
-        function fn_change(obj){
-            let btn = document.getElementById("img_id");
-            btn.src = imgArr[idx].src;
-                idx++; 
-                idx %= imgArr.length;
+    function fn_left(){
+        if(idx == 0){
+            idx = imgArr.length - 1;
+        }else{
+            idx--;
         }
+        console.log(idx);
+        img.src = imgArr[idx].src;
+    }
+    function fn_right(){
+        if(idx == imgArr.length - 1){
+             idx = 0;
+        }else{
+            idx++
+        }
+        console.log(idx);
+        img.src = imgArr[idx].src;
+    }
       
     </script>
 </head>
@@ -28,10 +45,10 @@
     <hr>
     <div>
         <!-- 왼쪽 버튼 클릭 시 이전 이미지 -->
-        <button type="button" onclick="fn_change(this)"> < </button>   
+        <button type="button" onclick="fn_left()"> < </button>   
         <img src="./img/1.jpg" id="img_id" alt="">
         <!-- 오른쪽 버튼 클릭 시 다음 이미지 -->
-        <button type="button" onclick="fn_change(this)"> > </button>
+        <button type="button" onclick="fn_right()"> > </button>
         <!-- 9-15와 다른 점은 click 이벤트 대상이 바뀌는게 아니라는 점. 
             1. 버튼 클릭 이벤트
             2. id가 img_id인 이미지 태그의 src를 변경

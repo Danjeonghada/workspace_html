@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onblur, onfocus</title>
+    <script>
+        function fn_check(obj){
+            if(obj.value == ''){
+                console.log("입력!!");
+                obj.focus();
+            }
+        }
+    </script>
+</head>
+<body onload="document.getElementById('nm').focus()">
+    <h3>onblur, onfocus</h3>
+    <hr>
+    <p>이름을 입력하지 않고 다른 창으로 이동 할 수 없습니다.</p>
+    <form action="">
+        이름 : <input type="text" id="nm" onblur="fn_check(this)"> <br>
+        학번 : <input type="text" id="num">
+    </form>
+    
+</body>
+</html>

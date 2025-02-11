@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+#output {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid black;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+.style1 {
+    background-color: lightblue;
+    color: darkblue;
+    font-size: 20px;
+    font-weight: bold;
+}
+.style2 {
+    background-color: lightcoral;
+    color: white;
+    font-size: 24px;
+    font-style: italic;
+}

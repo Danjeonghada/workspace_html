@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키 이벤트</title>
+    <script>
+        function fn_keydown(e){
+            console.log(e);
+            let str = "";
+            let div = document.getElementById('div_id');
+            div.innerHTML = "";
+            str += e.key + "키가 눌러졌습니다."
+            div.innerHTML = str;
+        }
+        function updateText(){
+            let value = document.getElementById('text').value;
+            document.getElementById('div_id2').innerText = value;
+        }
+    </script>
+</head>
+<body>
+    <h3>키 이벤트 리스너</h3>
+    <hr>
+    텍스트 창에 키를 눌러보세요<div class="br"></div>
+    <!-- onkeydown : 키를 누를 때(모든 키 입력)
+         onkeypress : 키를 누를 때(문자 입력 키만)
+         oninput : 값이 변경될 때(입력, 붙여넣기, 드래그, 수정) -->
+    <input type="text" id="text" onkeydown="fn_keydown(event)" oninput="updateText()">
+    <div id="div_id"
+      style="background-color: aquamarine; width: 300px; height: 100px;"></div>
+    <div id="div_id2"
+      style="background-color: gainsboro; width: 300px; height: 100px;"></div>
+</body>
+</html>
