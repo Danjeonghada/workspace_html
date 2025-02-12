@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부모 윈도우</title>
+    <script>
+        let childWin
+        function fn_open(url){
+            childWin = window.open(url, 'child', 'width=400', 'height=400');
+            childWin.onload = function(){
+                childWin.document.getElementById('child_id').value=  // 자식 input
+                    document.getElementById('parent_id').value;      // 부모 input 내용
+                document.getElementById('parent_id').value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="parent_id">
+    <button onclick="fn_open('자식.html')">자식 열기</button>
+</body>
+</html>

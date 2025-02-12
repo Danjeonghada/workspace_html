@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout</title>
+    <script>
+        let timeId = null;
+        function startTimer(time){
+            // 타이머 시작
+            timeId = setTimeout("load('http://www.naver.com')",time);
+            document.getElementById('img_id').title = "타이머 작동 시작..";
+        }
+        function stopTimer(){
+            if(timeId != null){
+                clearTimeout(timeId); // 중단!!
+            }
+        }
+        function load(url){
+            window.location = url ; // 현재 윈도우 이동
+        }
+    </script>
+</head>
+<body>
+    <h3>이미지에 마우스를 올리고 3초간 있으면 이동합니다.</h3>
+    <img id="img_id" src="./img/꽃.jpg" onmouseout="stopTimer()"
+    onmouseover="startTimer(3000)" height="300px" alt="">
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자식 윈도우</title>
+    <script>
+        function fn_close(){
+            opener.close(); // 부모가 있다면 opener. 가 부모의 window와 같음.
+        }
+        function fn_send(){
+            opener.document.getElementById('parent_id').value=   // 부모에게
+                document.getElementById('send_id').value;        // 자식의 내용을
+            document.getElementById('send_id').value = '';
+        }
+    </script>
+</head>
+<body>
+    부모에서 전달된 내용 <input type="text" id="child_id" readonly>
+    자식이 전달 <input type="text" id="send_id">
+    <input type="button" value="전달" onclick="fn_send()">
+    <input type="button" value="부모닫기!!" onclick="fn_close()">
+</body>
+</html>

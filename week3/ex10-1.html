@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window open</title>
+    <script>
+        let myWin = null;
+        function fn_open(url){
+           myWin = window.open(url,"popup","left=500, top=500, width=300, height=300");
+        }
+        function fn_close(){
+            if(myWin == null || myWin.closed){
+                return;
+            }
+            else{
+                myWin.close();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>윈도우 열기</h3>
+    <hr>
+    <button onclick="fn_open('http://www.msn.com')">msn</button>
+    <button onclick="fn_open('http://www.naver.com')">네이버</button>
+    <button type="button" onclick="fn_close()">닫기</button>
+</body>
+</html>
