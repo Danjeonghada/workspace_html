@@ -67,7 +67,7 @@
      let timer = setInterval(function(){
       time--
       times.textContent = time;
-      if(time == 0){
+      if(time <= -1){
         clearInterval(timer);
         alert("종료 최종 점수: " + score);
       }

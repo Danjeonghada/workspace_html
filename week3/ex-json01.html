@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON 데이터</title>
+</head>
+<body>
+    <script>
+        // javascript object notaion
+        // 통신간에 데이터 교환 수단으로 사용됨.
+        // 객체 -> 문자열 -> 전송 -> 문자열 -> 객체
+        // 숫자, 문자열, 불리언, 배열, 객체를 표현할 수 있음.
+        let data = '{"name":"팽수", "age":10, "hobby":["노래","참치잡기"]}';
+        console.log(data);
+        // 문자열 to 객체
+        let obj = JSON.parse(data);
+        console.log(obj); // parse로 객체로 변환하면 객체로 다룰 수 있음.
+        obj['use_yn'] = true;
+
+        let obj2 = {"name":"동수", "age": 25};
+
+        let arr = [];
+        arr.push(obj);
+        arr.push(obj2);
+        // 객체 to 문자열
+        let str = JSON.stringify(arr);
+        console.log(str);
+        localStorage.setItem("userList", str);
+
+    </script>
+</body>
+</html>

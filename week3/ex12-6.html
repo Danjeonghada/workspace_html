@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로컬 스토리지</title>
+</head>
+<body>
+    <h3>로컬 스토리지는 브라우저가 종료되도 남아있음.</h3>
+    <hr>
+    item : <input type="text" id="item">
+    value : <input type="text" id="val">
+    <button id="save" onclick="fn_save()">저장</button>
+    <button onclick="fn_search()">찾기</button>
+    <script>
+        function fn_save(){
+            let item = document.getElementById("item");
+            let val = document.getElementById('val');
+            localStorage.setItem(item.value, val.value);
+            item.value = "";
+            val.value = "";
+        }
+        function fn_search(){
+            let item = document.getElementById("item");
+            let val = localStorage.getItem(item.value);
+            let str = "";
+            if(val == null){
+                str += "없음";
+            }else{
+                str += "key:" + item.value + "/ value:" + val;
+            }
+            item.value = "";
+            alert(str);
+        }
+    </script>
+</body>
+</html>
