@@ -47,6 +47,7 @@
       //  - 이미지의.style.display 를 none으로
       function hideMole(){
         mole.style.display = 'none';
+        flag = true;
       }
       // 랜덤한 위치           randomPosition() 함수
       // - 이미지의.style.left
@@ -59,9 +60,14 @@
       }
       // 4. 점수 계산 (클릭이벤트) & 시간감소
       // - 이미지를 클릭했을때 점수증가
+      let flag = true;
       mole.addEventListener('click',function(){
-        score++
-        point.textContent = score;
+        if(flag){ // 한번만 클릭되게
+          score++
+          point.textContent = score;
+          // hideMole() // 클릭하면 숨게
+          flag = false;
+        }
       })
       // - 1초마다 시간감소
      let timer = setInterval(function(){
@@ -69,7 +75,9 @@
       times.textContent = time;
       if(time <= -1){
         clearInterval(timer);
+        clearInterval(gameInterval);
         alert("종료 최종 점수: " + score);
+        location.reload();
       }
     }, 1000);
   

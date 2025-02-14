@@ -37,21 +37,44 @@
 
                 // 아이디 비밀번호 입력 체크
                 // 1. 입력 없으면 안됨.
-                if(!id.value ||!pw.value){
+                if(!id.value ||!pw.value || !pw2.value){
                     alert("!! 입력하세요 !!");
+                    return;
                 // 2. 입력 길이 : 4 ~ 15, pw : 8 ~
-                }else if(4 > id.value.length || 15 < id.value.length ||8 > pw.value.length){
-                    alert("길이 제한을 지켜주세요.");
-                // 3. user-pw, user-pw2 아이디 입력 같아야함.
-                }else if(pw != pw2){
-                    alert("비밀번호가 일치하지 않아요.");
+                }if(4 > id.value.length || 15 < id.value.length){
+                    alert("아이디 4 ~ 15 자리로!!");
+                    id.focus();
+                    return;
+                }if(pw.value.length < 8){
+                    alert("비밀번호 8자리 이상!!");
+                    pw.value = '';
+                    pw.focus();
+                    return;
                 }
-                
+                // 3. user-pw, user-pw2 아이디 입력 같아야함.
+                if(pw.value !== pw2.value){
+                    alert("암호가 다름!");
+                    pw2.value = "";
+                    pw2.focus();
+                    return;
+                }
 
                 // 4. 저장되어 있는 아이디 안됨.!
-                for(i = 0; i < localStorage.length; i++ ){
-                    localStorage[i].userId == id.value;
-                    alert("이미 있는 아이디입니다.");
+                let members = JSON.parse(localStorage.getItem("member")) || [];
+                // for(let i = 0; i < members.length; i++){
+                //     if(members[i].userId === id.value){
+                //         alert("존재함.");
+                //         return;
+                //     }
+                // }
+                // some() 배열에 특정 조건을 만족하는 요소가 하나라도 있는지 확인
+                // 하나 이사으이 요소가 조건을 만족하면 true 리턴, 그렇지 않으면 false
+                let arr = [1,3,4];
+                console.log(arr.some(num => num % 2 === 0));
+
+                if(members.some(user => user.userId === id.value)){
+                    alert("이미 존재하는 아이디입니다.");
+                    return;
                 }
 
                 let member = JSON.parse(localStorage.getItem('member')) || [];
@@ -60,7 +83,7 @@
                 id.value = "";
                 pw.value = "";
                 if(confirm("회원가입 완료 로그인으로 이동?!")){
-                    window.close();
+                    window.location.href = "login.html";
                 }
             }
         </script>

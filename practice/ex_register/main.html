@@ -11,8 +11,16 @@
         if(!userInfo){
             location.href='login.html';
         }else{
-            document.write(userInfo + "님 반갑습니다. ^^");
+            window.onload = function(){
+                document.getElementById('userId').value = userInfo + '님 반갑습니다. ^^';
+            }
+        }
+        function logout(){
+            sessionStorage.removeItem("loginUser");
+            location.reload();
         }
     </script>
+    <input type="text" readonly id="userId">
+    <input type="button" value="iogout" onclick="logout()">
 </body>
 </html>

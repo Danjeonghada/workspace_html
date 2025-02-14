@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그림판 1</title>
+    <script>
+        let canvas, context;
+        let startX, startY;
+        let dragging = false;
+        let tool = 'p';
+        let size = 1;
+        function init(){
+            canvas = document.getElementById('myCanvas');
+            context = canvas.getContext("2d");
+            context.lineWidth = size;
+            context.lineCap = 'round';
+            context.strokeStyle= 'black';
+            canvas.addEventListener('mousemove', move);
+            canvas.addEventListener('mousedown', down);
+            canvas.addEventListener('mouseup', up);
+            canvas.addEventListener('mouseout', out);
+        }
+        window.onload = init;
+        // 클릭 했을 때
+        function down(e){
+            dragging = true;
+            startX = e.offsetX;
+            startY = e.offsetY;
+        }
+        // 클릭 놨을 때
+        function up(){
+            dragging = false;
+        }
+        // 캔버스를 나갔을 때
+        function out(){
+            dragging = false;
+        }
+        // 그릴 때(클릭하고 움직일 때 캔버스 위를)
+        // 그리는 함수
+        function draw(curX,curY){
+            context.beginPath();
+            context.moveTo(startX,startY);
+            context.lineTo(curX, curY);
+            context.stroke();
+        }
+        // 마우스 무브
+        function move(e){
+            if(!dragging){
+                return;} // true가 아니면 그려지지 않도록
+                let curX = e.offsetX;
+                let curY = e.offsetY;
+                draw(curX, curY);
+                startX = curX;
+                startY = curY;
+        }
+
+    </script>
+</head>
+<body>
+    <h3>그림을 그려보세요.</h3>
+    <hr>
+    <canvas id="myCanvas" width="400px" height="300px" style="background-color: azure;"></canvas>
+    <div>
+        <table>
+            <tr>
+                <td>컬러</td>
+                <td><input type="color" onchange="context.strokeStyle= this.value"></td>
+            </tr>
+            <tr>
+                <td>사이즈</td>
+                <td><input type="range" min="1" max="30" value="1" onchange="context.lineWidth = this.value"></td>
+            </tr>
+            <tr>
+                <td><label for="">붓:</label><input type="radio" name="tool">
+                    <label for="">지우개</label><input type="radio" name="tool">
+                </td>
+                <td><button onclick="remover()">전체 삭제</button></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        // 전체 삭제 기능
+        function remover() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    </script>
+
+</body>
+</html>

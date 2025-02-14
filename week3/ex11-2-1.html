@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>격자 그리기</title>
+    <style>
+        body{margin: 0; left: 0; background-color: aquamarine;}
+        canvas{background-color: white; margin: 20px;}
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="420px" height="420px"></canvas>
+    <button onclick="go()">격자 그리기</button>
+    <script>
+        let w = 400;
+        let h = 400;
+        let p = 10;
+        let canvas = document.getElementById("myCanvas");
+        let context = canvas.getContext("2d");
+        // 격자 그리기 버튼 클릭 시 가로줄 10 x 세로줄 10 간격 40 grid를 그려주세요
+        let arr = [];
+        function go(){
+            context.beginPath();
+            for(let i = 0; i <= w; i+=40){
+                // x만 변화
+                context.moveTo(i+p,p);
+                context.lineTo(i+p,h+p);
+                // y만 변화
+                context.moveTo(p,i+p);
+                context.lineTo(w+p,i+p);
+                arr.push(p+i);
+                
+            }   
+            context.strokeStyle="black";
+            context.stroke();
+            console.log(arr);
+        }
+        canvas.addEventListener('click', function(e){
+            let checkX = 0;
+            let checkY = 0;
+            console.log(e.offsetX + "," + e.offsetY);
+            for(let i = 0; i < arr.length -1;i++){
+                // [i]보다 크거나 같고 i+1 보다 작을 때때
+                if(arr[i] <= e.offsetX && e.offsetX < arr[i+1]){
+                    checkX = arr[i];
+                    console.log(checkX);
+                }
+                if(arr[i] <= e.offsetY && e.offsetY < arr[i+1]){
+                    checkY = arr[i];
+                }
+            
+            }
+            if(checkX != 0 && checkY !=0){
+                context.beginPath();
+                context.fillStyle = 'violet';
+                context.rect(checkX, checkY, 40, 40);
+                context.fill();
+            }
+        })
+    </script>
+</body>
+</html>

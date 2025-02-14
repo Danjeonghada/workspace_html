@@ -6,17 +6,17 @@
     <title>쿠키</title>
     <script>
         function setCookie(name, val, expireDate){
-            // 쿠키는 문자열 형식으로
-            let cookieStr = name + "=" + val + 
-                ((expireDate == null)? "": ("; expires" + expireDate.toUTCString()));
+            // 쿠키는 문자열 형식으로 
+            let cookieStr = name + "=" + val +
+                ((expireDate == null) ? "" : ("; expires=" + expireDate.toUTCString()));
             // cookie 프로퍼티에 추가
-            document.cookie = cookieStr;
+            document.cookie = cookieStr;    
         }
         function getCookie(name){
             let pairs = document.cookie.split(";"); // ;을 구분자로 자르기
-            for(let i = 0; i < pairs.length; i++){
-                let pair = pairs[i].trim();
-                let unit = pair.split("="); // = 기준으로 자르기 [0] key, [1] value
+            for(let i = 0; i < pairs.length; i ++){
+                let pair = pairs[i].trim(); 
+                let unit = pair.split("=");  // = 기준으로 자르기 [0] key, [1] value
                 if(unit[0] == name){
                     return unit[1];
                 }
@@ -27,19 +27,21 @@
         let expires = new Date();
         // 이전 기록이 없음
         if(userName == null){
+            count = 0;
             userName = prompt("이름을 입력하세요 ^^");
-            // 유효기간 1년 쿠키 생성
-            expires.setTime(expires.getTime()) + (365 * 24 * 60 * 60 * 1000);
+            //유효기간 1년 쿠키 생성
+            expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000));
             setCookie("userName", userName, expires);
         }
-        // 방문 횟수 쿠키 저장
-            count++;
-            expires.setTime(expires.getTime()) + (365 * 24 * 60 * 60 * 1000);
-            setCookie("count", count, expires);
-            document.write("<p> 어서 오세요 ^^'" + userName + "'님의" + count + "번째 방문을 환영합니다. </p>");
+        // 방문 횟수 쿠기저장
+        count ++;
+        expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000));
+        setCookie("count", count, expires);
+        document.write("<p> 어서 오세요 ^^ '" + userName + "' 님의 "
+                        + count + "번째 방문을 환영합니다.</p>" );
+
     </script>
 </head>
 <body>
-    
 </body>
 </html>
