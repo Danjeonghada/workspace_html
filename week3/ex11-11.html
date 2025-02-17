@@ -27,6 +27,9 @@
             dragging = true;
             startX = e.offsetX;
             startY = e.offsetY;
+            if(tool == 'E'){
+                context.clearRect(startX, startY, size, size);
+            }
         }
         // 클릭 놨을 때
         function up(){
@@ -39,10 +42,15 @@
         // 그릴 때(클릭하고 움직일 때 캔버스 위를)
         // 그리는 함수
         function draw(curX,curY){
-            context.beginPath();
-            context.moveTo(startX,startY);
-            context.lineTo(curX, curY);
-            context.stroke();
+            if(tool == 'p'){
+                context.beginPath();
+                context.moveTo(startX,startY);
+                context.lineTo(curX, curY);
+                context.stroke();
+            }
+            else{
+                context.clearRect(curX, curY, size, size);
+            }
         }
         // 마우스 무브
         function move(e){
@@ -54,7 +62,30 @@
                 startX = curX;
                 startY = curY;
         }
+        function change(obj){
+            // 1. 사이즈
+            if(obj.type == 'range'){
+                context.lineWidth = obj.value;
+            }
+            // 2. 색
+            else if(obj.type == 'color'){
+                context.strokeStyle = obj.value;
+            }
+            // 지우개
+            else if(obj.name == 'tool'){
+                tool = obj.value;
+                if(tool == "E"){
+                    canvas.style.cursor = 'url(cursorE1.cur), auto';
+                }
+                else{
+                    canvas.style.cursor = 'auto';
+                }
+            }
+        }
 
+        function allClear(){
+            context.clearRect(0,0, canvas.width, canvas.height);
+        }
     </script>
 </head>
 <body>
@@ -65,26 +96,19 @@
         <table>
             <tr>
                 <td>컬러</td>
-                <td><input type="color" onchange="context.strokeStyle= this.value"></td>
+                <td><input type="color" onchange="change(this)"></td>
             </tr>
             <tr>
                 <td>사이즈</td>
-                <td><input type="range" min="1" max="30" value="1" onchange="context.lineWidth = this.value"></td>
+                <td><input type="range" min="1" max="30" value="1" onchange="change(this)"></td>
             </tr>
             <tr>
-                <td><label for="">붓:</label><input type="radio" name="tool">
-                    <label for="">지우개</label><input type="radio" name="tool">
+                <td><label for="">붓:</label><input checked="change(this)" type="radio" value="p" name="tool">
+                    <label for="">지우개</label><input onchange="change(this)" type="radio" value="E" name="tool">
                 </td>
-                <td><button onclick="remover()">전체 삭제</button></td>
+                <td><button onclick="allClear()">전체 삭제</button></td>
             </tr>
         </table>
     </div>
-    <script>
-        // 전체 삭제 기능
-        function remover() {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-        }
-    </script>
-
 </body>
 </html>

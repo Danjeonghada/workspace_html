@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동기와 비동기</title>
+    <style>
+        html, body{margin: 0; padding: 0; height: 100%;}
+        #left_div{float: left; height: 800px; width: 45%; overflow: scroll;}
+        table tr:hover{background-color: cadetblue;}
+    </style>
+</head>
+<body>
+    <script>
+        let = a = '순서1';
+        let = b = '순서2';
+        let = c = '순서3';
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        // javascript는 기본 동기방식으로 동작(순서대로)
+
+        console.log("비동기===");
+        console.log(a);
+        setTimeout(()=>{console.log(b)}, 1000);
+        console.log(c);
+
+        let url = "https://api.upbit.com/v1/market/all";
+        let ajax = new XMLHttpRequest(); // 비동기 통신을 지원하는 객체
+        function upbit_get(){
+            ajax.open('GET', url, true);
+            ajax.send(); // 요청!
+        }
+
+        function get_detail(obj){
+            alert(obj.children[0].innerHTML);
+        }
+
+        ajax.onreadystatechange = function(){
+            // 4. 데이터 리턴, 200:정상응답
+            if(ajax.readyState == 4 && ajax.status == 200){
+                let arr = JSON.parse(ajax.responseText);
+                console.log(arr);
+                let str = '';
+                for(let i = 0; i < arr.length; i++){
+                    // tr 클릭 시 market 코드가 alert으로 출력 되도록
+                    // str += '<tr onclick= "get_detail(this)">'; // this 활용 방법
+                        str += '<tr onclick="alert(\''+ arr[i]['market']  +'\')">';
+                        str += '<td>' + arr[i]['market'] +'</td>';
+                        str += '<td>' + arr[i]['korean_name'] +'</td>';
+                        str += '<td>' + arr[i]['english_name'] +'</td>';
+                    str += '</tr>';
+                }
+                document.getElementById("coinList").innerHTML = str;
+              
+            }
+        }
+    </script>
+    <button type="button" onclick="upbit_get()">요청!</button>
+    <div class="row">
+        <div id="left_div">
+            <table id="coinList"></table>
+        </div>
+    </div>
+</body>
+</html>

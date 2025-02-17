@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현재 위치는?</title>
+</head>
+<body>
+    <h3>허용 하셔야 정보를 받을 수 있습니다.</h3>
+    <hr>
+    <div id="msg">이곳에 위치 정보를 출력</div>
+    <script>
+        if(!navigator.geolocation){
+            alert("지원하지 않습니다.");
+        }
+        else{
+            // 콜백 함수로 매개 변수를 받음.
+            navigator.geolocation.getCurrentPosition(fn_found);
+        }
+        function fn_found(pos){
+            console.log(pos);
+            let lat = pos.coords.latitude;  // 위도
+            let lon = pos.coords.longitude; // 경도
+            document.getElementById("msg").innerHTML = `<p>당신은 위도:${lat}, 경도:${lon} 이군요! </p>`;
+        }
+    </script>
+</body>
+</html>
