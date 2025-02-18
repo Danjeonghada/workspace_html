@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        html, body{margin: 0; padding: 0; height: 100%;}
+        #left_div{float: left; height: 800px; width: 45%; overflow: scroll;}
+        #right_div{float: left; height: 800px; width: 45%; overflow: scroll;}
+        table tr:hover{background-color: cadetblue;}
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                //jquery $.ajax는 비동기적으로 데이터를 주고 받기 위해 사용되는 함수
+                //GET, POST 등의 요청 방식을 지정할 수 있으며
+                // 요청 데이터, 응답 데이터, 처리 방법, 오류 처리 등을 세밀하게 설정 가능.
+                $.ajax({
+                    url : "https://api.upbit.com/v1/market/all"
+                   ,method : "GET"
+                   ,dataType : "json" // 응답 데이터 타입
+                   ,success : function(arr){
+                        console.log(arr) // 응답 데이터(리턴 데이터)
+                        let str = "";
+                        for(let i = 0; i < arr.length; i++){
+                            str += '<tr onclick="get_detail(\''+ arr[i]['market']  +'\')">';
+                                str += '<td>' + arr[i]['market'] +'</td>';
+                                str += '<td>' + arr[i]['korean_name'] +'</td>';
+                                str += '<td>' + arr[i]['english_name'] +'</td>';
+                                str += '</tr>';
+                            }
+                        $("#coinList").html(str);
+                        }
+                    ,error : function(err){
+                        console.log(err);
+                    }
+                });
+            });
+        });
+        function get_detail(market){
+            let detailUrl = "https://api.upbit.com/v1/ticker?markets=" + market;
+            $.ajax({
+                url : detailUrl
+               ,method : "GET"
+               ,dataType : "json"
+               ,data : {"market" : market} // 요청 데이터
+               ,success : function(res){
+                    console.log(res);
+                    let obj = res[0];
+                    let str = "";
+                    for(let k in obj){
+                        str += "<tr>";
+                        str += "<td>" + k + "</td><td>" + obj[k] + "</td>";
+                        str += "</tr>";
+                    }
+                    $("#coin_detail").html(str);
+               }
+               ,error : function(err){
+                    console.log(err);
+               } 
+            });
+
+        }
+    </script>
+</head>
+<body>
+    <button type="button" id="btn"></button>
+    <div class="row">
+        <div id="left_div">
+            <table id="coinList"></table>
+        </div>
+        <div id="right_div">
+            <table id="coin_detail"></table>
+        </div>
+    </div>
+</body>
+</html>
