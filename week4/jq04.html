@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom 추가</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#btn1').click(function(){
+                // append 자식 요소 마지막에 추가가
+                $("#content").append("<b>마지막에 추가!</b>");
+            });
+            $('#btn2').click(function(){
+                // prepend 자식요소 앞에 추가
+                $("#content").prepend("<b>앞에 추가!</b>");
+            });
+            $('#btn3').click(function(){
+                //empty 비우기
+                $("#content").empty(); // 비워서 content는 남아있음(자식들이 비워짐)
+            });
+            $('#btn4').click(function(){
+                // remove 해당 엘리먼트가 삭제됨(복구 안됨)
+                $("#content").remove();
+            });
+            $('#btn5').click(function(){
+                // 앞에 추가(형제 요소)
+                $("#content").before("<div>before</div>");
+            });
+            $('#btn6').click(function(){
+                // 뒤에 추가
+                $("#content").after("<div>after</div>");
+            });
+            $('#btn7').click(function(){
+                // warp 감싸기
+                $("#content").wrap("<div style='background-color:red;'></div>");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="content">
+        <p>append, prepend, empty, remove, before, after, warp</p>
+    </div>
+    <button id="btn1" type="button">append</button>
+    <button id="btn2" type="button">prepend</button>
+    <button id="btn3" type="button">empty</button>
+    <button id="btn4" type="button">remove</button>
+    <button id="btn5" type="button">before</button>
+    <button id="btn6" type="button">after</button>
+    <button id="btn7" type="button">warp</button>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다음 웹 검색</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        const API_KEY = "21a282db2780ca99a78bc590751dddce";
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                let sample = $("#search").val();
+                let size = $("#size").val() || 50;
+                let page = $("#page").val() || 1;
+                $.ajax({
+                    url : "https://dapi.kakao.com/v2/search/web"
+                   ,type : "GET"
+                   ,data : {"query" : sample
+                           ,"page"  : page
+                           ,"size"  : size              
+                           }
+                   ,headers : {"Authorization":"KakaoAK "+API_KEY}
+                   ,success : function(res){
+                        // 1. 검색 결과 배열 가져오기 (이전 요소가 결과가 있다면 비우기)
+                        let arr = res['documents'];
+                        console.log(arr);
+                        $("content").empty();
+                        // 2. 반복해서 검색 결과의 각 요소에 접근
+                        let title = '';
+                        let url = '';
+                        let content = '';
+                        for(let i = 0; i <arr.length; i++){
+                            let title = arr[i]['title'];
+                            let url = arr[i]['url'];
+                            let contents = arr[i]['contents'];
+                        };
+                        console.log(title);
+                        // 3. 각 요소의 key로 원하는 value 가져오기
+                        // 4. title, url, contents 를 원하는 태그로 감싸주고
+                        let total =
+                        // 5. content div에 append
+                        $("#content").append()
+                   } 
+                   ,error : function(err){
+                        console.log(err);
+                   }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="search-main">
+        <input type="text" id="search" placeholder="검색어를 입력하세요">
+        page:<input type="number" id="page">
+        size:<input type="range" min="1" max="50" id="size"><br>
+        <button type="button" id="btn">검색</button>
+    </div>
+    <div id="content">
+    </div>
+</body>
+</html>

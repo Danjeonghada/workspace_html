@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상태 체크 is, prop(checked)</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#sel").change(function(){
+                alert($(this).val());
+                alert($(this).find('option:selected').text());
+            });
+
+            // javascript forEach
+            // jquery each
+            let arr = ["사과", "바나나",  "포도"];
+            arr.forEach((v, i) => { 
+                console.log('v:', v, 'i:', i);
+            });
+
+            console.log("jquery ==");
+                $(arr).each(function(i, v){
+                    console.log('i:' + i, 'v:' + v);
+            });
+
+            $("#btn").click(function(){
+                let str = "";
+                $("input[name=chk]").each(function(i, v){
+                    console.log(v);
+                    if($(v).is(":checked")){
+                        str += $(v).val() + "";
+                    }
+                });
+                alert(str);
+            });
+            $("#all").click(function(){
+                if($(this).is(":checked")){
+                    // prop dom 객체 속성을 가져오거나 수정.
+                    $("input[name=chk]").prop("checked", true);
+                }
+                else{
+                    $("input[name=chk]").prop("checked", false);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <select name="sel" id="sel">
+        <option value="">선택하세요!</option>
+        <option value="">아아</option>
+        <option value="">아샷추</option>
+        <option value="">아바라</option>
+    </select>
+    <input type="checkbox" name="" id="all"> 전체 <br>
+    <input type="checkbox" name="chk" value="1"> 선택1
+    <input type="checkbox" name="chk" value="2"> 선택2
+    <input type="checkbox" name="chk" value="3"> 선택3
+    <button id="btn">선택 가져오기!</button>
+</body>
+</html>

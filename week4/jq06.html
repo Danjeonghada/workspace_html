@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엘리먼트 추가 삭제</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        #input-container{margin-bottom: 5px;}
+    </style>
+    <script>
+        $(document).ready(function(){
+            $(".add-btn").click(function(){
+                // $("#content").append('<input type="text" placeholder="입력하세요">');
+                // clone() 복사
+                let newInput = $("#input-container").clone();
+                $(newInput).find('input').val('');
+                let btn = $(newInput).find('button');
+                btn.text('-');
+                btn.addClass("del-btn"); // class 추가
+                $("#content").append(newInput);
+            });
+            // $(".del-btn").click(function(){
+            //     alert("!!?");
+            // });
+            // 새롭게 만들어진 DOM 객체는 .click과 같은 이벤트가 바로 적용 안됨.
+            // 상위 엘리먼트에 .on 메소드 사용해야 함.
+            $("#content").on("click", ".del-btn", function(){
+                $(this).parent().remove();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="content">
+        <div id="input-container">
+            <input type="text" placeholder="입력하세요">
+            <button type="button" class="add-btn">+</button>
+        </div>
+    </div>
+</body>
+</html>

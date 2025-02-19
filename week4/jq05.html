@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parent, children, closet, find, eq</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn0").click(function(){
+                // $(this) 해당 이벤트 대상 객체
+                // $().parent() // 대상의 부모 객체
+                let c_div = $(this).parent();
+                let p_div = c_div.parent();
+                let g_div = p_div.parent();
+                console.log("child:", c_div);
+                console.log("parent:", p_div);
+                console.log("grand:", g_div);
+                console.log($(this).parent().parent().parent().parent());
+
+                // closets() 메소드는 대상 요소로부터 시작해서 DOM트리를
+                // 거슬러 올라가며 지정한 선택지와 일치하는 가장 가까운 요소를 찾음.
+                console.log($(this).closest(".parent"));
+                // 자식 요소에서 찾는 방법 find
+                console.log($(".grandparent").find('button'));
+                console.log($(".grandparent").find('button').eq(1)); // eq 순서로
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="grandparent">
+        <div class="parent">
+            <div class="child">
+                <button class="btn0">click</button>
+                <button class="btn1">1</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
