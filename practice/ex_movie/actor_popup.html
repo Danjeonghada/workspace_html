@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="movie.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        const API_KEY ="7f7314005c9a1bb8ee535cedbd043a27";
+        const CODE_URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
+        const INFO_URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json";
+        $(document).ready(function(){
+                // input code로
+                // INFO_URL 요청 후 화면에 출력
+                let keyword = $("#code").val();
+                  $.ajax({
+                      url : INFO_URL
+                     ,type : "GET"
+                     ,dataType:"json"
+                     ,data : {"movieCd" : keyword
+                            , "key": API_KEY
+                     }
+                     ,success :function(res){
+                        console.log(res);
+                        $("#movieTableBody").empty();  // 비우기 
+                        let nmList = res['peopleInfoResult']['peopleInfo'];
+                        //2. tbody 출력 !
+                        let str ='';
+                        if(nmList.length != 0){
+                            nmList.forEach(function(v, i){
+                                str +='<tr>';
+                                    str +='<td>' +v['peopleNm']+ '</td>';
+                                    str +='<td>' +v['movieCd']+ '</td>';
+                                    str +='<td>' +v['movieNm']+ '</td>';
+                                    str +='</tr>'
+                                });
+                            }else{
+                                str +='<tr><td colspan="3">검색 결과가 없습니다.</td></tr>';
+                            }
+                            $("#movieTableBody").append(str);
+                        }
+                     ,error : function(err){
+                        console.log(err);
+                     }
+                    });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>영화인 상세조회</h2>
+        <form action="" id="movieForm">
+            <input type="text" id="code" readonly>
+        </form>
+        <table id="movieTable">
+             <colgroup>
+                <col style="width: 10%;"></col>
+                <col style="width: 10%;"></col>
+                <col style="width: 10%;"></col>
+             </colgroup>
+             <thead>
+                <tr>
+                    <th>영화인 이름</th>
+                    <th>영화 코드</th>
+                    <th>영화 이름</th>
+                </tr>
+             </thead>
+             <tbody id="movieTableBody"></tbody>
+        </table>
+    </div>
+</body>
+</html>

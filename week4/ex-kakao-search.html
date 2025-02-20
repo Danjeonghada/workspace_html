@@ -23,27 +23,23 @@
                    ,success : function(res){
                         // 1. 검색 결과 배열 가져오기 (이전 요소가 결과가 있다면 비우기)
                         let arr = res['documents'];
-                        console.log(arr);
-                        $("content").empty();
+                        let str = '';
+                        $("#content").empty();
+                        arr.forEach(function(v, i){
+                            console.log(i, v);
+                            let title = v['title'];
+                            let contents = v['contents'];
+                            let url = v['url'];
+                            str += "<h4>" + title + "</h4>";
+                            str += "<p>" + contents + "</p>";
+                            str += "<a href='" + url + "'>바로가기</p>";
+                        });
+                        $("#content").append(str);
                         // 2. 반복해서 검색 결과의 각 요소에 접근
-                        let title = '';
-                        let url = '';
-                        let content = '';
-                        for(let i = 0; i <arr.length; i++){
-                            let title = arr[i]['title'];
-                            let url = arr[i]['url'];
-                            let contents = arr[i]['contents'];
-                        };
-                        console.log(title);
                         // 3. 각 요소의 key로 원하는 value 가져오기
                         // 4. title, url, contents 를 원하는 태그로 감싸주고
-                        let total =
                         // 5. content div에 append
-                        $("#content").append()
                    } 
-                   ,error : function(err){
-                        console.log(err);
-                   }
                 });
             });
         });

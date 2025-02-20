@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="movie.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        const API_KEY ="7f7314005c9a1bb8ee535cedbd043a27";
+        const CODE_URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
+        const INFO_URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json";
+        $(document).ready(function(){
+            $("#movieTableBody").on("click", "tr", function(){
+                console.log($(this).find("td").eq(0).text());    
+                fn_popup($(this).find("td").eq(0).text());
+            });
+          
+            $("#movieForm").submit(function(e){
+                  e.preventDefault(); // submit의 디폴트 행동 취소!
+                  //1.input search value 가져오기
+                  let keyword = $("#search").val();
+                  $.ajax({
+                      url : CODE_URL
+                     ,type : "GET"
+                     ,dataType:"json"
+                     ,data : {"peopleNm" : keyword
+                            , "key": API_KEY
+                     }
+                     ,success :function(res){
+                        $("#movieTableBody").empty();  // 비우기 
+                        let nmList = res['peopleListResult']['peopleList'];
+                        //2. tbody 출력 !
+                        let str ='';
+                        if(nmList.length != 0){
+                            nmList.forEach(function(v, i){
+                                str +='<tr>';
+                                str +='<td>' +v['peopleCd']+ '</td>';
+                                str +='<td>' +v['peopleNm']+ '</td>';
+                                str +='<td>' +v['peopleNmEn']+ '</td>';
+                                str +='<td>' +v['repRoleNm']+ '</td>';
+                                str +='<td>' +v['filmoNames']+ '</td>';
+                                str +='</tr>'
+                            });
+                        }else{
+                            str +='<tr><td colspan="5">검색 결과가 없습니다.</td></tr>';
+                        }
+                        $("#movieTableBody").append(str);
+                     }
+                     ,error : function(err){
+                        console.log(err);
+                     }
+                    });
+            });
+        });
+        
+
+        function fn_popup(code){
+            let childWin = window.open("actor_popup.html", "child", "width=400, height=1000");
+            childWin.onload = function(){
+                childWin.document.getElementById("code").value = code;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>영화인 검색</h2>
+        <form action="" id="movieForm">
+            <input type="text" id="search" required>
+            <button type="submit">검색</button>
+        </form>
+        <table id="movieTable">
+             <colgroup>
+                <col style="width: 10%;"></col>
+                <col style="width: 10%;"></col>
+                <col style="width: 10%;"></col>
+                <col style="width: 10%;"></col>
+                <col style="width: 60%;"></col>
+             </colgroup>
+             <thead>
+                <tr>
+                    <th>영화인 코드</th>
+                    <th>영화인 이름</th>
+                    <th>영화인 영문명</th>
+                    <th>영화인 롤</th>
+                    <th>영화인 필모</th>
+                </tr>
+             </thead>
+             <tbody id="movieTableBody"></tbody>
+        </table>
+    </div>
+</body>
+</html>
