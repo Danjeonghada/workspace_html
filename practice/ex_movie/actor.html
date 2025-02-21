@@ -28,6 +28,7 @@
                             , "key": API_KEY
                      }
                      ,success :function(res){
+                        console.log(res);
                         $("#movieTableBody").empty();  // 비우기 
                         let nmList = res['peopleListResult']['peopleList'];
                         //2. tbody 출력 !

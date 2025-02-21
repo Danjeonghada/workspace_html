@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="movie.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
-        const API_KEY ="7f7314005c9a1bb8ee535cedbd043a27";
+        const API_KEY = "7f7314005c9a1bb8ee535cedbd043a27";
         const BOX_URL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-        $(document).ready(function(){
-            $("#movieForm").submit(function(e){
+        $(document).ready(function () {
+            $("#movieForm").submit(function (e) {
                 e.preventDefault();
                 let dateInput = $("#dateInput").val();
                 console.log(dateInput);
@@ -19,44 +19,49 @@
                 let selDate = new Date(dateInput);
                 let today = new Date();
                 today.setHours(0, 0, 0, 0); // 시간 부분 0으로
-                if(selDate > today){
+                if (selDate > today) {
                     alert("이전 날짜만 선택 가능!");
                     return;
                 }
                 console.log('요청!');
                 //dailyBoxOffice, 요청 날짜로 (targetDt) 화면에 출력
-                let keyword = dateInput.replaceAll("-","");
+                let keyword = dateInput.replaceAll("-", "");
                 $.ajax({
-                    url : BOX_URL
-                     ,type : "GET"
-                     ,dataType:"json"
-                     ,data : {"targetDt" : keyword
-                            , "key": API_KEY
-                     }
-                     ,success :function(res){
-                        console.log(res);
-                        $("#movieTableBody").empty(); 
+                    url: BOX_URL
+                    , type: "GET"
+                    , dataType: "json"
+                    , data: {
+                        "targetDt": keyword
+                        , "key": API_KEY
+                    }
+                    , success: function (res) {
+                        $("#movieTableBody").empty();
+                        $("#movieTable").show();
                         let boxOfficeList = res['boxOfficeResult']['dailyBoxOfficeList'];
                         let str = '';
-                        if(boxOfficeList.length != 0){
-                            boxOfficeList.forEach(function(v, i){
-                                str +='<tr>';
-                                str +='<td>' +v['rank']+ '</td>';
-                                str +='<td>' +v['movieNm']+ '</td>';
-                                str +='<td>' +v['openDt']+ '</td>';
-                                str +='<td>' +v['salesAmt']+ '</td>';
-                                str +='<td>' +v['audiCnt']+ '</td>';
-                                str +='<td>' +v['salesAcc']+ '</td>';
-                                str +='<td>' +v['audiAcc']+ '</td>';
-                                str +='</tr>'
+                        if (boxOfficeList.length != 0) {
+                            boxOfficeList.forEach(function (v, i) {
+                                str += '<tr>';
+                                str += '<td>' + v['rank'] + '</td>';
+                                str += '<td>' + v['movieNm'] + '</td>';
+                                str += '<td>' + v['openDt'] + '</td>';
+                                str += '<td>' + Number(v['salesAmt']).toLocaleString() +  '원</td>';
+                                str += '<td>' + Number(v['audiCnt']).toLocaleString() + '명</td>';
+                                str += '<td>' + Number(v['salesAcc']).toLocaleString() + '원</td>';
+                                str += '<td>' + Number(v['audiAcc']).toLocaleString() + '명</td>';
+                                str += '</tr>'
                             });
                         }
-                        else{
-                            str +='<tr><td>검색 결과가 없습니다.</td></tr>';
+                        else {
+                            str += '<tr><td colspan="7">검색 결과가 없습니다.</td></tr>';
                         }
                         $("#movieTableBody").append(str);
-                     }
-                }) 
+                    },
+                    error: function (err) {
+                        console.error("API 요청 실패:", err);
+                        alert("데이터를 불러오는 중 오류가 발생했습니다.");
+                    }
+                })
 
             });
         });
@@ -90,4 +95,5 @@
         </table>
     </div>
 </body>
+
 </html>
