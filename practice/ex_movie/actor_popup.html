@@ -24,16 +24,16 @@
                         console.log(res);
                         $("#movieTableBody").empty();  // 비우기 
                         let nmList = res['peopleInfoResult']['peopleInfo'];
-                       
+                        let mvList = nmList['filmos']
                         //2. tbody 출력 !
                         let str ='';
-                        if(nmList.length != 0){
-                            nmList.forEach(function(v, i){
+                        if(mvList && mvList.length > 0){
+                            mvList.forEach(function(v, i){
                                 str +='<tr>';
-                                    str +='<td>' +v['peopleNm']+ '</td>';
-                                    str +='<td>' +v['movieCd']+ '</td>';
-                                    str +='<td>' +v['movieNm']+ '</td>';
-                                    str +='</tr>'
+                                str +='<td>' + nmList['peopleNm'] + '</td>';
+                                str +='<td>' + v['movieCd'] + '</td>';
+                                str +='<td>' + v['movieNm'] + '</td>';
+                                str +='</tr>'
                                 });
                             }else{
                                 str +='<tr><td colspan="3">검색 결과가 없습니다.</td></tr>';
