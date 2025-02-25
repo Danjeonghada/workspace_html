@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xml 파일 가져오기</title>
+</head>
+<body>
+    <button onclick="fn_get()">가져오기</button>
+    <script>
+        function fn_get(){
+            // JSON, XML, TXT 비동기 방식으로 읽어와야함.
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', './data/ex.xml', true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    console.log(xhr.responseXML); // 일반 txt면 ressponseText
+                    let xmlDoc = xhr.responseXML;
+                    let emps = xmlDoc.getElementsByTagName('employee');
+                    console.log(emps);
+                    for(let i = 0; i < emps.length; i++){
+                        let firstNm = emps[i].getElementsByTagName('firstName')[0].textContent;
+                        console.log(firstNm);
+                    }
+
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

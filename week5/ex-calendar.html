@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.15/index.global.min.js"></script>
+    <script>
+        window.onload = function(){
+            let calendarEl = document.getElementById('calendar');
+            // let current = [{"title" : "일정1", "start" : "2025-02-24"}
+            //               ,{"title" : "일정2", "start" : "2025-02-26"} 
+            // ];
+            // localStorage.setItem("userEvents", JSON.stringify(current));
+            let current = fn_getData();
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView : "dayGridMonth"
+               ,events : current 
+               // 일정이 있는 부분 클릭
+               ,eventClick : function(res){
+                    console.log("일정 있는 부분");
+                    console.log(res);
+                    let action = prompt("d: 삭제, u: 수정");
+                    if(action == 'u'){
+                        let newMsg = prompt("수정 내용을 입력하세요!")
+                        if(newMsg){
+                            res.event.setProp('title', newMsg);
+                            fn_edit(res.event.startStr, newMsg);
+                        }
+                    }
+                    else if(action == 'd'){
+                        fn_del(res.event.startStr); // 로컬스토리지 내용 삭제
+                        res.event.remove();
+                    }
+
+               }
+               // 일정이 없는 부분 클릭
+               ,dateClick : function(res){
+                   calendar.render();
+                   console.log("일정 없는 부분");
+                   console.log(res);
+                   let msg = prompt("내용을 입력하세요!");
+                   if(msg){
+                        let eventMessage = {title : msg
+                                           ,start : res.dateStr
+                        };
+                        fn_add(eventMessage);
+                        calendar.addEvent(eventMessage);
+                   }
+                }
+            });
+            calendar.render();
+        }
+        // 로컬스토리지 데이터 가져오기
+        function fn_getData(){
+            let data = localStorage.getItem("userEvents");
+            return data ? JSON.parse(data) : [];
+        }
+        // 삭제 함수
+        function fn_del(del_data){
+            let data = fn_getData();
+            // 해당 조건이 아닌 대상만 newData로
+            let newData = data.filter(event => event.start !== del_data);
+            localStorage.setItem('userEvents', JSON.stringify(newData));
+        }
+        // 추가 함수
+        function fn_add(event_data){
+            let data = fn_getData();
+            // 같은 날짜가 없으면 이벤트 추가
+            if(!data.some(event => event.start == event_data.start)){
+                data.push(event_data);
+                localStorage.setItem('userEvents', JSON.stringify(data));
+            }
+        }
+        // 수정
+        function fn_edit(edit_date, new_title){
+            let data = fn_getData();
+                // 수정하고자 하는 날짜가 같은 데이터의 title 정보를 new_title로 변경 후 
+                // 로컬 스토리지에 다시 data를 setItem
+                localStorage.setItem('userEvents', JSON.stringify(data));
+
+        }
+    </script>
+</head>
+<body>
+    <div id="calendar" style="width: 800px;"></div>
+</body>
+</html>
