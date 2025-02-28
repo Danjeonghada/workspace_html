@@ -1,175 +1,385 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC 온라인</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        div{
-            /* border: 1px solid black; */
-        }
-        .container{
-            background-color: #f8f8f8;
-            width: 80%;
-            margin: auto;
-        }
-
-        /* ✅ 네비게이션 정렬 */
-        .navigation{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            width: 100%;
-            background-color: white;
-        }
-
-        .logo{
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #333;
-        }
-
-        /* ✅ 메뉴를 오른쪽으로 정렬 */
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* 메뉴와 로그인 버튼 사이 간격 */
-        }
-
-        .menu {
-            display: flex;
-            gap: 15px;
-        }
-
-        .menu a{
-            text-decoration: none;
-            color: black;
-            padding: 12px;
-        }
-
-        .login-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .login-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* ✅ 검색창 정렬 */
-        .search-box{
-            width: 100%;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .user-search{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
-            width: 50%;
-            text-align: center;
-        }
-        .user-search form{
-            width: 100%;
-        }
-        .user-search input {
-            width: 80%;
-            padding: 10px;
-            font-size: 18px;
-        }
-
-        /* ✅ 메인 컨텐츠 정렬 */
-        .main{
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .notice, .recommend-choice, .football-rank {
-            padding: 20px;
-        }
-        .notice {
-            width: 20%;
-            text-align: left;
-        }
-        .recommend-choice{
-            width: 50%;
-            text-align: center;
-        }
-        .football-rank{
-            width: 20%;
-            text-align: right;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC 온라인</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #eef2f5;
+    }
+    
+    /* Full Width Navigation */
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background-color: #f8f8f8;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    .logo:hover {
+      color: #007bff;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .menu {
+      display: flex;
+      gap: 15px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #333;
+      padding: 12px;
+      transition: color 0.3s ease;
+    }
+    .menu a:hover {
+      color: #007bff;
+    }
+    .login-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .login-btn:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Container for Other Content */
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: #fff;
+    }
+    
+    /* Search Box */
+    .search-box {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background-color: #ddd;
+    }
+    .user-search {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      width: 50%;
+      text-align: center;
+    }
+    .user-search form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .user-search input {
+      width: 70%;
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .user-search button {
+      padding: 10px 15px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+    .user-search button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Main Content */
+    .main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 20px;
+      gap: 20px;
+    }
+    .notice, .recommend-choice, .football-rank {
+      padding: 20px;
+      background-color: #f8f8f8;
+      border-radius: 5px;
+    }
+    .notice {
+      width: 20%;
+      text-align: left;
+    }
+    .recommend-choice {
+      width: 50%;
+      text-align: center;
+    }
+    .football-rank {
+      width: 20%;
+      text-align: right;
+    }
+    
+    /* Notice Section Items */
+    .notice-item {
+      margin-bottom: 15px;
+    }
+    .notice-item h4 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .notice-item p {
+      font-size: 14px;
+      color: #555;
+    }
+    
+    /* Recommend Choice Section */
+    .toggle-recommend-options {
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px;
+      transition: color 0.3s ease;
+    }
+    .toggle-recommend-options:hover {
+      color: #007bff;
+    }
+    .recommend-options {
+      display: none;
+      margin-top: 15px;
+    }
+    .recommend-option {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .recommend-option:hover {
+      background-color: #f0f0f0;
+    }
+    .recommend-title {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 5px;
+    }
+    
+    /* Modal Styles */
+    .modal-overlay {
+      display: none; /* 초기엔 숨김 */
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .main {
+        flex-direction: column;
+      }
+      .notice, .recommend-choice, .football-rank {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .user-search {
+        width: 80%;
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ✅ 네비게이션 -->
-        <nav class="navigation">
-            <div class="logo">⚽ FC 드림스쿼드</div>
-            
-            <div class="nav-right">
-                <div class="menu">
-                    <a href="">선수 정보</a> 
-                    <a href="">팀 정보</a>
-                    <a href="">감독/팀 컬러</a>
-                    <a href="">미페/수수료 계산</a>
-                    <a href="">스쿼드 제작</a>
-                </div>
-                <button class="login-btn">로그인</button>
-            </div>
-        </nav>
-
-        <!-- 검색창 -->
-        <section class="search-box">
-            <div class="user-search">
-                <form action="">
-                    <input type="text" placeholder="구단주 검색">
-                    <button>검색</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- 메인 컨텐츠 (공지사항 - 추천 - 해외축구순위) -->
-        <section class="main">
-            <div class="notice">
-                <h3>📢 공지사항</h3>
-                <div>업데이트 내역</div>
-                <div>업데이트 예정</div>
-            </div>
-
-            <div class="recommend-choice">
-                <h3>⚽ 스쿼드 추천</h3>
-                <div class="recommend-player">원하는 선수</div>
-                <div class="recommend-team">원하는 팀</div>
-                <div class="recommend-strong">성능 팀</div>
-                <div class="recommend-emotion">감성 팀</div>
-            </div>
-
-            <div class="football-rank">
-                <h3>🌍 해외축구순위</h3>
-                <div>순위 데이터</div>
-            </div>
-        </section>
+  <!-- Full Width Navigation -->
+  <nav class="navigation">
+    <div class="logo">⚽ FC 드림스쿼드</div>
+    <div class="nav-right">
+      <div class="menu">
+        <a href="">선수 정보</a>
+        <a href="">팀 정보</a>
+        <a href="">감독/팀 컬러</a>
+        <a href="">미페/수수료 계산</a>
+        <a href="">스쿼드 제작</a>
+      </div>
+      <button class="login-btn">로그인</button>
     </div>
+  </nav>
+  
+  <div class="container">
+    <!-- Search Box -->
+    <section class="search-box">
+      <div class="user-search">
+        <form action="">
+          <input type="text" placeholder="구단주 검색">
+          <button>검색</button>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Main Content -->
+    <section class="main">
+      <!-- Notice Section -->
+      <div class="notice">
+        <h3>📢 공지사항</h3>
+        <div class="notice-item">
+          <h4>공지사항</h4>
+          <p>공지사항에 대한 내용이 여기에 표시됩니다.</p>
+        </div>
+        <div class="notice-item">
+          <h4>업데이트 내역</h4>
+          <p>최신 업데이트 내역이 여기에 표시됩니다.</p>
+        </div>
+        <div class="notice-item">
+          <h4>업데이트 예정</h4>
+          <p>앞으로 업데이트 될 내용이 여기에 표시됩니다.</p>
+        </div>
+      </div>
+      
+      <!-- Recommend Choice Section -->
+      <div class="recommend-choice">
+        <h3 class="toggle-recommend-options">⚽ 스쿼드 추천</h3>
+        <div class="recommend-options">
+          <div class="recommend-option" data-option="player">
+            <div class="recommend-title">원하는 선수</div>
+          </div>
+          <div class="recommend-option" data-option="team">
+            <div class="recommend-title">원하는 팀</div>
+          </div>
+          <div class="recommend-option" data-option="strong">
+            <div class="recommend-title">성능 팀</div>
+          </div>
+          <div class="recommend-option" data-option="emotion">
+            <div class="recommend-title">감성 팀</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Football Rank Section -->
+      <div class="football-rank">
+        <h3>🌍 해외축구순위</h3>
+        <div>순위 데이터가 여기에 표시됩니다.</div>
+      </div>
+    </section>
+    <footer></footer>
+  </div>
+  
+  <!-- Modal for Questionnaire -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="modal-close">X</span>
+      <div id="modal-body">
+        <!-- 질문지 내용이 동적으로 채워집니다 -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function(){
+      // "스쿼드 추천" 제목 클릭 시 추천 옵션 토글
+      $('.toggle-recommend-options').click(function(){
+        $('.recommend-options').slideToggle();
+      });
+      
+      // 추천 옵션 클릭 시 해당 질문지를 모달에 표시
+      $('.recommend-option').click(function(){
+        var option = $(this).data('option');
+        var content = '';
+        if(option === 'player'){
+          content = '<h2>원하는 선수 질문지</h2>'+
+                    '<form>' +
+                    '<label>선수 이름: <input type="text" name="playerName"></label><br><br>' +
+                    '<label>선호 포지션: <input type="text" name="position"></label><br><br>' +
+                    '<input type="submit" value="제출">' +
+                    '</form>';
+        } else if(option === 'team'){
+          content = '<h2>원하는 팀 질문지</h2>'+
+                    '<form>' +
+                    '<label>팀 이름: <input type="text" name="teamName"></label><br><br>' +
+                    '<label>지역: <input type="text" name="region"></label><br><br>' +
+                    '<input type="submit" value="제출">' +
+                    '</form>';
+        } else if(option === 'strong'){
+          content = '<h2>성능 팀 질문지</h2>'+
+                    '<form>' +
+                    '<label>팀 성능 등급: <input type="text" name="performance"></label><br><br>' +
+                    '<label>선호 전술: <input type="text" name="tactics"></label><br><br>' +
+                    '<input type="submit" value="제출">' +
+                    '</form>';
+        } else if(option === 'emotion'){
+          content = '<h2>감성 팀 질문지</h2>'+
+                    '<form>' +
+                    '<label>팀의 감성: <input type="text" name="emotion"></label><br><br>' +
+                    '<label>팬 문화: <input type="text" name="culture"></label><br><br>' +
+                    '<input type="submit" value="제출">' +
+                    '</form>';
+        }
+        $('#modal-body').html(content);
+        // 모달이 중앙에 뜨도록 fadeIn 후 display를 flex로 설정
+        $('#modal').fadeIn().css('display','flex');
+      });
+      
+      // 모달 닫기 버튼 클릭 시 모달 숨김
+      $('.modal-close').click(function(){
+        $('#modal').fadeOut();
+      });
+      
+      // 모달 영역 외 클릭 시 모달 숨김
+      $(window).click(function(e){
+        if($(e.target).is('#modal')){
+          $('#modal').fadeOut();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
