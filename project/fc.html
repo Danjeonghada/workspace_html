@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC 온라인</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            border: 1px solid black;
+        }
+        .container{
+            background-color: #f8f8f8;
+        }
+        .navigation{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .menu a{
+            text-decoration: none;
+            color: black;
+            padding: 12px;
+        }
+        .search-box{
+            width: 100%;
+            height: 300px;
+            position: relative;
+            display: flex;
+        }
+        .user-search{
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            font-size: 30px;
+        }
+        .user-search form{
+            text-align: center;
+        }
+        .main{
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            gap: 300px;
+
+        }
+        .notice{
+            width: 10%;
+            left: 0;
+        }
+        .recommend-choice{
+            width: 60%;
+        }
+        .football-rank{
+            width: 20%;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navigation">
+            <div class="logo">⚽ FC 드림스쿼드</div>
+            <div class="menu">
+                <a href="">선수 정보</a> 
+                <a href="">팀 정보</a>
+                <a href="">감독/팀 컬러</a>
+                <a href="">미페/수수료 계산</a>
+                <a href="">스쿼드 제작</a>
+            </div>
+            <div>
+                <button>로그인</button>
+            </div>
+        </nav>
+        <section class="search-box">
+            <div class="user-search">
+                <form action="">
+                    <input type="text" placeholder="구단주 검색">
+                    <button></button>
+                </form>
+            </div>
+        </section>
+
+        <section class="main">
+            <div class="notice">
+                <div>공지사항</div>
+                <div>업데이트 내역</div>
+                <div>업데이트 예정</div>
+            </div>
+
+            <div class="recommend-choice">
+                <div class="recommend-player"></div>
+                <div class="recommend-team"></div>
+                <div class="recommend-strong"></div>
+                <div class="recommend-"></div>
+            </div>
+            <div class="football-rank">
+                <div>해외축구순위</div>
+            </div>
+        </section>
+        <footer>
+
+        </footer>
+    </div>
+</body>
+</html>
