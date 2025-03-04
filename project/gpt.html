@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FC 온라인</title>
+  <title> FC 드림 스쿼드</title>
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <style>
     /* Global Styles */
@@ -84,7 +84,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      background-color: #ddd;
+      background-color: white;
     }
     .user-search {
       position: absolute;
@@ -180,47 +180,22 @@
     .recommend-option {
       margin-bottom: 15px;
       border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .recommend-option:hover {
-      background-color: #f0f0f0;
+      padding-bottom: 10px;
     }
     .recommend-title {
       font-size: 18px;
       font-weight: bold;
       padding: 5px;
+      transition: color 0.3s ease;
     }
-    
-    /* Modal Styles */
-    .modal-overlay {
-      display: none; /* 초기엔 숨김 */
-      position: fixed;
-      top: 0; 
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+    .recommend-title:hover {
+      color: #007bff;
     }
-    .modal-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      width: 80%;
-      max-width: 500px;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: bold;
+    .recommend-content {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
     }
     
     /* Responsive Design */
@@ -242,7 +217,7 @@
 <body>
   <!-- Full Width Navigation -->
   <nav class="navigation">
-    <div class="logo">⚽ FC 드림스쿼드</div>
+    <div class="logo">⚽ FC 드림 스쿼드</div>
     <div class="nav-right">
       <div class="menu">
         <a href="">선수 정보</a>
@@ -291,15 +266,27 @@
         <div class="recommend-options">
           <div class="recommend-option" data-option="player">
             <div class="recommend-title">원하는 선수</div>
+            <div class="recommend-content">
+              선수에 대한 상세 정보가 여기에 표시됩니다.
+            </div>
           </div>
           <div class="recommend-option" data-option="team">
             <div class="recommend-title">원하는 팀</div>
+            <div class="recommend-content">
+              팀에 대한 상세 정보가 여기에 표시됩니다.
+            </div>
           </div>
           <div class="recommend-option" data-option="strong">
             <div class="recommend-title">성능 팀</div>
+            <div class="recommend-content">
+              성능에 따른 팀 정보가 여기에 표시됩니다.
+            </div>
           </div>
           <div class="recommend-option" data-option="emotion">
             <div class="recommend-title">감성 팀</div>
+            <div class="recommend-content">
+              감성에 따른 팀 정보가 여기에 표시됩니다.
+            </div>
           </div>
         </div>
       </div>
@@ -313,71 +300,11 @@
     <footer></footer>
   </div>
   
-  <!-- Modal for Questionnaire -->
-  <div id="modal" class="modal-overlay">
-    <div class="modal-content">
-      <span class="modal-close">X</span>
-      <div id="modal-body">
-        <!-- 질문지 내용이 동적으로 채워집니다 -->
-      </div>
-    </div>
-  </div>
-  
   <script>
     $(document).ready(function(){
-      // "스쿼드 추천" 제목 클릭 시 추천 옵션 토글
+      // "스쿼드 추천" 제목 클릭 시 추천 옵션 전체 토글
       $('.toggle-recommend-options').click(function(){
         $('.recommend-options').slideToggle();
-      });
-      
-      // 추천 옵션 클릭 시 해당 질문지를 모달에 표시
-      $('.recommend-option').click(function(){
-        var option = $(this).data('option');
-        var content = '';
-        if(option === 'player'){
-          content = '<h2>원하는 선수 질문지</h2>'+
-                    '<form>' +
-                    '<label>선수 이름: <input type="text" name="playerName"></label><br><br>' +
-                    '<label>선호 포지션: <input type="text" name="position"></label><br><br>' +
-                    '<input type="submit" value="제출">' +
-                    '</form>';
-        } else if(option === 'team'){
-          content = '<h2>원하는 팀 질문지</h2>'+
-                    '<form>' +
-                    '<label>팀 이름: <input type="text" name="teamName"></label><br><br>' +
-                    '<label>지역: <input type="text" name="region"></label><br><br>' +
-                    '<input type="submit" value="제출">' +
-                    '</form>';
-        } else if(option === 'strong'){
-          content = '<h2>성능 팀 질문지</h2>'+
-                    '<form>' +
-                    '<label>팀 성능 등급: <input type="text" name="performance"></label><br><br>' +
-                    '<label>선호 전술: <input type="text" name="tactics"></label><br><br>' +
-                    '<input type="submit" value="제출">' +
-                    '</form>';
-        } else if(option === 'emotion'){
-          content = '<h2>감성 팀 질문지</h2>'+
-                    '<form>' +
-                    '<label>팀의 감성: <input type="text" name="emotion"></label><br><br>' +
-                    '<label>팬 문화: <input type="text" name="culture"></label><br><br>' +
-                    '<input type="submit" value="제출">' +
-                    '</form>';
-        }
-        $('#modal-body').html(content);
-        // 모달이 중앙에 뜨도록 fadeIn 후 display를 flex로 설정
-        $('#modal').fadeIn().css('display','flex');
-      });
-      
-      // 모달 닫기 버튼 클릭 시 모달 숨김
-      $('.modal-close').click(function(){
-        $('#modal').fadeOut();
-      });
-      
-      // 모달 영역 외 클릭 시 모달 숨김
-      $(window).click(function(e){
-        if($(e.target).is('#modal')){
-          $('#modal').fadeOut();
-        }
       });
     });
   </script>
