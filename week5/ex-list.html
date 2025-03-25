@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list.js</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+    
+</head>
+<body>
+    <div id="tb">
+        <!-- 검색 부분 -->
+         <div class="input-group">
+            <input type="text" class="search">
+            <button data-sort="writer" class="sort">이름</button>
+         </div>
+        <!-- 테이블 부분 -->
+        <table class="table table-striped" style="text-align:center;" >
+            <thead>
+                <tr>
+                   <th>번호</th>
+                   <th>제목</th>
+                   <th>작성자</th>
+                   <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr>
+                    <td class="no">1</td>
+                    <td class="title">안녕하세요</td>
+                    <td class="writer">길동</td>
+                    <td class="date">2023-08-28</td>
+                </tr>
+                <tr>
+                    <td class="no">2</td>
+                    <td class="title">안녕하세요</td>
+                    <td class="writer">동길</td>
+                    <td class="date">2023-08-28</td>
+                </tr>
+                    <tr>
+                    <td class="no">3</td>
+                    <td class="title">안녕하세요</td>
+                    <td class="writer">팽수</td>
+                    <td class="date">2023-08-28</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- paging -->
+        <div>
+            <ul class="pagination"></ul>
+        </div>
+    </div>
+    <script>
+        let options={
+            valuesNames:["no", "title", "writer", "date"]
+            ,page:2 // 출력행 수
+           ,pageintion : true 
+        }
+        let tb = new List("tb", options);
+
+    </script>
+</body>
+</html>
