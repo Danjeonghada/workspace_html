@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barChart"></canvas>
+    <script>
+    const ctx1 = document.getElementById('barChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['서울', '부산', '대구', '광주'],
+            datasets: [{
+                label: '인구 수 (만 명)',
+                data: [973, 343, 245, 149],
+                borderWidth: 1,
+                backgroundColor: ['skyblue', 'orange', 'salmon', 'yellow']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: true } },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+    </script>
+
+</body>
+</html>

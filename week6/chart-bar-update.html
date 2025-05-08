@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barChart" width="600px" height="400px"></canvas>
+    <button type="button" onclick="updateData()">수정</button>
+    <script>
+    const ctx1 = document.getElementById('barChart').getContext('2d');
+    const ChartDate = {labels: ['서울', '부산', '대구', '광주'],
+                      datasets: [{
+                        label: '인구 수 (만 명)',
+                        data: [973, 343, 245, 149],
+                        borderWidth: 1,
+                        backgroundColor: ['skyblue', 'orange', 'salmon', 'yellow']
+                      }]
+                    }
+    const barChart = new Chart(ctx1, {
+        type: 'bar',
+        data: ChartDate,
+        options: {
+            responsive: true,
+            plugins: { legend: { display: true } },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+    function updateData(){
+        let newLabel = ['인천', '대전', '울산', '강원'];
+        let newData = [100, 145, 113, 67];
+        console.log(barChart)
+        // 차트데이터 수정
+        barChart.data.labels = newLabel;
+        barChart.data.datasets[0].data = newData;
+
+        barChart.update();
+    }
+    </script>
+
+</body>
+</html>

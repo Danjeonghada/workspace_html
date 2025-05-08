@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barChart" width="600px" height="400px"></canvas>
+</body>
+<script>
+    const ctx1 = document.getElementById('barChart').getContext('2d');
+    const data = {
+        labels : ['E', 'S', 'T', 'J', 'I', 'N', 'F', 'P'],
+        datasets : [
+            {label : '팽수',
+             data : [90, 30, 80, 85, 10, 70, 20, 15]
+            },
+            {
+                label : '동수'
+               ,data : [20, 40, 35, 80, 60, 70, 85] 
+            }
+        ]
+    }
+const config = {
+    type : 'radar',
+    data : data,
+    options : {
+        responsive : false
+    }
+}
+new Chart(ctx1, config);
+</script>
+</html>

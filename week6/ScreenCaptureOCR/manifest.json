@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "화면캡처!",
+    "version": "1.0",
+    "description": "Capture !!! Screen",
+    "permissions": ["tabs", "activeTab", "scripting"],
+    "action": {
+      "default_icon": "ocr.png",
+      "default_popup": "popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ]
+  }

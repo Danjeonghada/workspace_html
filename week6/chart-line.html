@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barChart" width="600px" height="400px"></canvas>
+</body>
+<script>
+    const ctx1 = document.getElementById('barChart').getContext('2d');
+    new Chart(ctx1, {
+        type : 'line',
+        data : {
+            labels : ['1월', '2월', '3월']
+           ,datasets : [{
+                label : '매출(단위:백만원)'
+               ,data : [100, 150, 90] 
+               ,borderColor : "blue"
+                },
+                {
+                    label : '지출(단위:백만원)'
+                   ,data : [20, 60, 30]
+                   ,borderColor : 'red' 
+                }
+            ] 
+        },
+        option : {
+            responsive : false,
+            scales : {
+                y: {beginAtZero:true}
+            }
+        }
+
+    });
+</script>
+</html>

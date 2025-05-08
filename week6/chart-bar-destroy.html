@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barChart" width="600px" height="400px"></canvas>
+    <button type="button" onclick="updateData()">수정</button>
+    <script>
+    const ctx1 = document.getElementById('barChart').getContext('2d');
+    let barChart = null;
+    function createChart(labels, data, labelText){
+    }   
+    // 최초 차트 생성
+    barChart = createChart(
+        ['서구', '중구', '동구', '대덕구', '유성구']
+        ,[98, 88, 80, 90, 100]
+        ,'인구 수(만명)' 
+    );
+
+    function updateData(){
+        // 차트 제거
+        if(barChart){
+            barchart.destroy();
+        }
+        // 새로운 차트 생성
+        barChart = createChart(
+            ['서구', '중구', '동구', '대덕구', '유성구']
+            ,[20, 100, 80, 77, 20]
+            ,'인구 수(만명)' 
+        );
+    }
+    </script>
+
+</body>
+</html>
