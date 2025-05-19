@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>구별 전력 사용량 예측 결과</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 40px auto;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 6px 10px;
+      margin: 0 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>구별 월별 전력 사용량 예측 (실제 vs 예측)</h2>
+
+  <form id="inputForm">
+    <input type="text" id="districtInput" placeholder="구 이름 (예: 유성구)" required>
+    <input type="number" id="yearInput" placeholder="연도 (예: 2024)" required>
+    <button type="submit">예측 요청</button>
+  </form>
+
+  <canvas id="usageChart" width="700" height="350"></canvas>
+
+  <script>
+    let usageChart;
+
+    document.getElementById('inputForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const district = document.getElementById('districtInput').value.trim();
+      const year = document.getElementById('yearInput').value;
+
+      const response = await fetch('http://127.0.0.1:5000/predict_district', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ district, year })
+      });
+
+      const data = await response.json();
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+
+      const labels = data.results.map(r => `${r.month}월`);
+      const actualUsage = data.results.map(r => r.actual_usage);
+      const predictedUsage = data.results.map(r => r.predicted_usage);
+
+      if (usageChart) {
+        usageChart.destroy();
+      }
+
+      const ctx = document.getElementById('usageChart').getContext('2d');
+      usageChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            // 여기만 주석 처리 or 삭제제 
+            {
+              label: '실제 사용량',
+              data: actualUsage,
+              borderColor: 'orange',
+              backgroundColor: 'orange',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              spanGaps: true,
+              tension: 0.3
+            },
+            {
+              label: '예측 사용량',
+              data: predictedUsage,
+              borderColor: 'blue',
+              backgroundColor: 'blue',
+              borderWidth: 2,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: '전력 사용량 (kWh)'
+              }
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: `${data.district}의 ${data.year}년 월별 전력 사용량 예측`,
+              font: { size: 16 }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

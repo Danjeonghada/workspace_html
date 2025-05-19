@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전기요금 예측 결과 그래프</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 40px auto;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 6px 10px;
+      margin: 0 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>월별 전기요금 예측 (실제 vs 예측)</h2>
+
+  <form id="inputForm">
+    <input type="text" id="dongInput" placeholder="동 이름 (예: 가양동)" required>
+    <input type="number" id="yearInput" placeholder="연도 (예: 2025)" required>
+    <button type="submit">예측 요청</button>
+  </form>
+
+  <canvas id="feeChart" width="700" height="350"></canvas>
+
+  <script>
+    let feeChart;
+
+    document.getElementById('inputForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const dong = document.getElementById('dongInput').value.trim();
+      const year = document.getElementById('yearInput').value;
+
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dong, year })
+      });
+
+      const data = await response.json();
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+
+      const labels = data.results.map(r => `${r.month}월`);
+      const realFees = data.results.map(r => r.real_fee);
+      const predFees = data.results.map(r => r.xgb_pred);
+
+      // 기존 차트가 있으면 파괴
+      if (feeChart) {
+        feeChart.destroy();
+      }
+
+      const ctx = document.getElementById('feeChart').getContext('2d');
+      feeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '실제 요금',
+              data: realFees,
+              borderColor: 'blue',
+              backgroundColor: 'blue',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              spanGaps: true,
+              tension: 0.3
+            },
+            {
+              label: '예측 요금',
+              data: predFees,
+              borderColor: 'orange',
+              backgroundColor: 'orange',
+              borderWidth: 2,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: '요금 (원)'
+              }
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: `${data.dong}의 ${data.year}년 월별 전기요금 예측 결과`,
+              font: { size: 16 }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
