@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전력 사용량 예측</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fefafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .predict-box {
+      background-color: #fff1f3;
+      border: 2px solid #f5a4b0;
+      border-radius: 12px;
+      padding: 30px;
+      width: 400px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .predict-box h2 {
+      margin-bottom: 20px;
+      color: #d13c5e;
+      text-align: center;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-right: 10px;
+      width: 80px;
+      text-align: right;
+    }
+
+    input[type="text"],
+    select {
+      padding: 8px;
+      font-size: 1rem;
+      width: 200px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #f5a4b0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    canvas {
+      margin-top: 40px;
+      max-width: 700px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="predict-box">
+    <h2>전력 사용량 예측</h2>
+
+    <div class="form-row">
+      <label for="dong">동 이름</label>
+      <input type="text" id="dong" placeholder="예: 둔산동">
+    </div>
+
+    <div class="form-row">
+      <label for="year">연도</label>
+      <select id="year">
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025" selected>2025</option>
+      </select>
+    </div>
+
+    <button onclick="fetchPrediction()">조회</button>
+  </div>
+
+  <canvas id="usageChart" width="700" height="350" style="display: none;"></canvas>
+
+  <script>
+    let usageChart;
+
+    async function fetchPrediction() {
+      const dong = document.getElementById("dong").value.trim();
+      const year = parseInt(document.getElementById("year").value);
+
+      if (!dong) {
+        alert("동 이름을 입력해주세요.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dong, year })
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        if (data.error) {
+          alert(data.error);
+          return;
+        }
+
+        const labels = data.results.map(r => `${r.year}.${String(r.month).padStart(2, '0')}`);
+        const values = data.results.map(r => r.xgb_pred ?? null);
+
+        if (usageChart) usageChart.destroy();
+
+        const ctx = document.getElementById('usageChart').getContext('2d');
+        document.getElementById('usageChart').style.display = 'block';
+
+        usageChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [{
+              label: '예측 전기요금',
+              data: values,
+              borderColor: '#ff7f50',
+              backgroundColor: '#ffb6b9',
+              borderWidth: 2,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: `${data.dong}의 ${data.year}년 예측 전기요금`,
+                font: { size: 18 }
+              }
+            },
+            scales: {
+              y: {
+                title: {
+                  display: true,
+                  text: '요금 (원)'
+                }
+              }
+            }
+          }
+        });
+      } catch (error) {
+        alert("예측 데이터를 불러오는 데 실패했습니다.");
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>
