@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>브이월드 지도 테스트</title>
+  <script type="text/javascript"
+    src="https://map.vworld.kr/js/webglMapInit.js.do?version=3.0&apiKey=F988F1E5-42AE-3BC2-9367-493BB6BA3661&domain=localhost:5500">
+  </script>
+  <style>
+    #vmap { width: 100%; height: 500px; }
+  </style>
+</head>
+<body>
+  <div id="vmap"></div>
+
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+        if (typeof vw === "undefined" || typeof vw.Map === "undefined") {
+          alert("vworld API 로딩 실패: 인증 키나 도메인 문제일 수 있습니다.");
+          return;
+        }
+
+        const options = {
+          mapId: "vmap",
+          initPosition: new vw.CameraPosition(
+            new vw.CoordZ(127.425, 38.196, 1548700),
+            new vw.Direction(0, -90, 0)
+          ),
+          logo: true,
+          navigation: true
+        };
+
+        const map = new vw.Map();
+        map.setOption(options);
+        map.start();
+      }, 200);
+    };
+  </script>
+</body>
+</html>
