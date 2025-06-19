@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>VWorld 3D 일조량 분석 (WebGL 3.0)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- WebGL 3.0 API -->
+  <script type="text/javascript" src="https://map.vworld.kr/js/webglMapInit.js.do?version=3.0&apiKey=59E8E97C-1463-372A-9540-000DB836F45D&domain=localhost"></script>
+  <!--  일조량 분석 기능 -->
+  <script type="text/javascript" src="https://map.vworld.kr/js/dtkmap/tool3d/libapis/sunlight/sunlight_analysis_api.min.js"></script>
+
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; width: 100%; }
+    #vmap { width: 100%; height: calc(100% - 80px); }
+    .controls {
+      height: 80px;
+      padding: 10px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: sans-serif;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="vmap"></div>
+  <button id="btnPoint" class="btn btn-primary">일조량 지점선택</button><br><br>
+  
+  <form class="field" id="frmSetList">
+  <div class="" id="toolbar">
+  <dl>
+    <dt>분석날짜</dt>
+    <dd><label for="anaDate"></label><input type="text" id="anaDate" name="anaDate" class="input date" data-bind="value: contourDate, valueUpdate: 'input'"  onchange="sunlightAnalysis.createSunObject()" valCheck="date" fieldTitle="분석날짜"/></dd>
+    <dt>시간별 태양위치</dt>
+    <dd>
+      <div class="range">
+        <label for="anaTim"><span style="float: left; width:15px; text-align:right;" id="time_span" data-bind="text: contourTime"></span>: 00</label>
+        <input type="range" id="anaTim" name="anaTim" class="form-control-range" min="5.0" max="20.0" step="1"
+                       data-bind="value: contourTime, valueUpdate: 'input'" onchange="sunlightAnalysis.createSunObject()"/>
+      </div>
+    </dd>
+    <dt>분석시간범위</dt>
+    <dd>
+      <label for="anaStTime"></label>
+      <select class="select" style="width: auto;" id="anaStTime" onchange="sunlightAnalysis.anaTimeCheck(this.value, document.getElementById('anaEdTime').value)"></select> ~ <label for="anaEdTime"></label><select class="select" style="width: auto;" id="anaEdTime" onchange="sunlightAnalysis.anaTimeCheck(document.getElementById('anaStTime').value, this.value)"></select></dd>
+    <dt>분석시간간격</dt>
+    <dd>
+      <label for="anlysTimeInterval" style="width: 150px;"></label>
+        <select class="form-control" id="anlysTimeInterval">
+        <option value="15">15분</option>
+        <option value="10">10분</option>
+        <option value="5">5분</option>
+        <option value="1">1분</option>
+        </select></dd>
+  </dl>
+   </div>
+   </form><br>
+   <button id="runAnlys" class="btn btn-primary">분석 수행</button><br>
+   <div class="controls">
+  <label for="aptSelect">아파트 선택: </label>
+  <select id="aptSelect" onchange="onAptSelect(this.value)">
+    <option value="">-- 아파트 선택 --</option>
+    <option value="127.412426,36.360882">신동아아파트 8동</option> 
+    <option value="127.409238,36.333122">대전목동더샵 101동</option> 
+    <option value="127.394213,36.347824">공작한양아파트 9동</option> 
+    <option value="127.390951,36.351037">목련아파트 105동</option> 
+    <option value="127.431507,36.343108">스마트뷰 110동</option> 
+    <option value="127.424311,36.341203">한밭자이아파트 107동</option> 
+    <option value="127.43243,36.339642">주공삼성타운아파트 101동</option>
+    <option value="127.391078,36.378021">스마트시티 201동</option>
+    <option value="127.425968,36.347956">신동아파밀리에아파트1단지 104동</option>
+    <option value="127.405213,36.333998">목양마을아파트 109동</option>
+  </select>
+</div>
+
+  <script type="text/javascript">
+ function vwmap(){
+
+  var options =   {
+      mapId : "vmap",
+      initPosition: new vw.CameraPosition(
+                new vw.CoordZ(127.349469,36.323643,500),
+                new vw.Direction(0, -90, 0)
+            ),
+      logo: true,
+      navigation: true
+
+    };
+
+    window.map = new vw.Map();
+    map.setOption( options );      
+    map.start();
+  }
+  vwmap();
+   ////웹지엘 3.0 초기지도 초기화
+   
+    
+    document.querySelector('#btnPoint').addEventListener("click", function() {
+      sunlightAnalysis.drawPointOnMap();
+    });
+   
+  
+    document.querySelector('#runAnlys').addEventListener("click", function() {
+      let interval = parseInt(document.getElementById('anlysTimeInterval').value);
+      let stTime = parseInt(document.getElementById('anaStTime').value)+1;
+      let endTime = parseInt(document.getElementById('anaEdTime').value);
+    sunlightAnalysis.runSunlight(interval, stTime, endTime, function(ResultInfo){
+      console.log("성공 : " + "clickeddata.selected");
+      console.log(ResultInfo);
+    });
+    });
+
+    function vwmoveTo(lon, lat, height) {
+  const movePos = new vw.CoordZ(lon, lat, height);
+  const camera = new vw.CameraPosition(movePos, new vw.Direction(0, -90, 0));
+  map.moveTo(camera);
+}
+
+function onAptSelect(value) {
+  if (!value) return; // 선택 안 했으면 무시
+  const [lon, lat] = value.split(',').map(Number);
+  vwmoveTo(lon, lat, 500);  // 기존 함수 사용
+}
+
+ </script>
